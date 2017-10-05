@@ -1,0 +1,1120 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular')
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+#d {
+    display: none;
+}
+
+#c {
+    display: block;
+}
+
+/* Footer */
+footer {
+    overflow: auto;
+    color: #1b1a1a;
+    border-top: 1px solid #dcd5d5;
+    padding: 4vh 2vw;
+    background-color: #fff;
+}
+
+/* Header */
+header#primary {
+    /*background-color: #2d3642;*/
+    /*border-bottom: 1px solid #dcd5d5;*/
+    width: 100%;
+    text-align: center;
+}
+
+header#primary img.logo {
+    max-width: 235px;
+    vertical-align: baseline;
+    cursor: pointer;
+    height: 35px;
+}
+
+.kyc-toolbar {
+    background-color: #29303A;
+    color: #fff;
+}
+
+.kyc-toolbar .logo-div {
+    padding: 16px 0;
+}
+
+.buttons-group .header-button {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 15px 0;
+    color: #fff
+}
+
+.buttons-group .header-button span {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.kyc-toolbar .buttons-group .header-button:hover {
+    background-color: #323A44;
+    color: #3DB4F8;
+}
+
+.toolbar {
+    width: 40px;
+    height: 45px;
+    background: #3DB4F8;
+    margin-right: 5px;
+}
+
+.hexagon-1 {
+    position: relative;
+    margin-top: 14px;
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.hexagon-1:before {
+    position: absolute;
+    content: '';
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    background: #6c6;
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.profile-image:before {
+    background-image: url('../../images/carlosbg.jpg');
+    background-size: cover;
+}
+
+.link {
+    cursor: pointer;
+    color: #3DB4F8;
+    font-weight: bold;
+}
+
+.logout-div {
+    font-size: 11px;
+    text-align: left;
+    margin-top: 22px;
+}
+
+.logout-div span {
+    display: block;
+}
+
+/* Index */
+div#main {
+    margin: 0;
+}
+
+/*div#main div {*/
+/*text-align: center;*/
+/*}*/
+
+div.row.filters {
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+div.slider {
+    margin-top: -20px;
+}
+
+div.row.table-container {
+    margin: 0;
+}
+
+table.main {
+    width: 100%;
+    font-size: 14px;
+}
+
+table tr th {
+    background-color: #fff;
+    padding: 10px;
+    /*text-align: center;*/
+    color: rgba(0, 0, 0, .7);
+    cursor: pointer;
+    /*border: 1px solid #e5eaec;*/
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+table tr th .glyphicon {
+    display: none;
+    float: right;
+}
+
+table tr td {
+    /*border: 1px solid #e5eaec;*/
+    padding: 10px;
+}
+
+table tr.open-modal {
+    cursor: pointer;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    color: blue;
+    background: lightyellow;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+    div#main {
+        padding: 10px;
+    }
+
+    /* Header */
+    header#primary div.logo {
+        text-align: center;
+    }
+
+    ul.nav-links {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        padding: 0;
+        padding-bottom: 10px;
+    }
+
+    /* Filters */
+    div.price-filter {
+        margin-top: 0;
+    }
+
+    .nav > li > a {
+        padding: 5px 15px;
+    }
+
+    div#main ul.nav {
+        margin: 0;
+    }
+
+    div#main ul.nav li {
+        padding: 0;
+    }
+
+}
+
+.no-outline {
+    outline: none !important;
+}
+
+.margin-1 {
+    margin: 1px !important;
+}
+
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+
+.margin-left-10 {
+    margin-left: 10px !important;
+}
+
+.width-100 {
+    width: 100px !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.display-block {
+    display: block !important;
+}
+
+.padding-left-5 {
+    padding-left: 5px !important;
+}
+
+/*.custom-chip {*/
+/*background-color: #e2e2e2;*/
+/*border-radius: 12px;*/
+/*margin: 2px;*/
+/*display: inline-block;*/
+/*float: left;*/
+/*padding: 0px 6px;*/
+/*color: #fff;*/
+/*}*/
+.toggle-filters-div {
+    display: none;
+}
+
+.custom-chip {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 80%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+.font-size-14 {
+    font-size: 14px !important;
+}
+
+.font-size-12 {
+    font-size: 12px !important;
+}
+
+.font-size-10 {
+    font-size: 10px !important;
+}
+
+.font-size-9 {
+    font-size: 9px !important;
+}
+
+.custom-chip-primary {
+    background-color: #337ab7;
+}
+
+.custom-chip-success {
+    background-color: #5cb85c;
+}
+
+.custom-chip-info {
+    background-color: #5bc0de;
+}
+
+.custom-chip-warning {
+    background-color: #f0ad4e;
+}
+
+.custom-chip-gray {
+    background-color: #636c72;
+}
+
+.more-on-hover > div {
+    display: none;
+}
+
+.more-on-hover > div:nth-child(1),
+.more-on-hover > div:nth-child(2),
+.more-on-hover > div:nth-child(3) {
+    display: block;
+}
+
+.more-on-hover:hover > div {
+    display: block;
+}
+
+.filters-div {
+    padding: 30px;
+    height: 200px;
+    background: linear-gradient(rgb(206, 234, 242) 1%, rgb(206, 234, 242) 72%, rgb(255, 255, 255) 100%);
+}
+
+.top-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.body-div {
+    flex-grow: 100;
+    position: relative;
+    margin-top: .5rem;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: -10px;
+    left: -45px;
+    font-size: 36px;
+    margin-left: 50px;
+    text-decoration: none;
+}
+
+.header-image img {
+    max-width: 70%;
+    max-height: 6em;
+    min-height: 45px;
+}
+
+.background-div {
+    z-index: 7;
+    position: unset;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #ececec;
+    opacity: 0.9;
+}
+
+.sidenav .header .logo-div {
+    background-color: white;
+    height: 180px;
+    padding-top: 40px;
+}
+
+.sidenav .header .logo-div .header-buttons {
+    padding-top: 20px;
+}
+
+.menu-div {
+    height: 60px;
+    padding-top: 16px;
+    display: inline-flex;
+}
+.navbar {
+    background-color: #bbb7b7;
+    text-align: center;
+    border-radius: 0;
+}
+
+.menu-div  li {
+    list-style-type: none;
+    position: relative;
+;
+}
+.nav>li>a:hover {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav>li>a:focus {
+    text-decoration: none;
+    background-color: transparent;
+}
+.menu-div li a {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu-div li.active:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    bottom: 10px;
+    background: #45bbf5;
+    width: 100%;
+    height: .25em;
+}
+.navbar{
+    margin-bottom: 0 !important;
+}
+
+.some-class {
+    position: relative;
+    padding-right: 5px;
+}
+
+.some-class:not(:last-child):before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    right: 0;
+    width: 1px;
+    display: block;
+    background-color: #000;
+}
+
+.description {
+    background-color: white;
+
+}
+
+.description p {
+    padding: 10px;
+    text-align: justify;
+}
+
+.description .company span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.description .regulations {
+    margin-top: 20px;
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.description .regulations div {
+    display: inline-grid;
+}
+
+.body-div a {
+    color: black;
+    cursor: default;
+    text-decoration: none;
+}
+
+.titles {
+    margin-top: 10px;
+}
+
+.titles .titles-header {
+    background-color: #bbb7b7;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px;
+    text-align: left !important;
+}
+
+.titles .supported-countries-body .exchange {
+    text-align: left;
+    display: block;
+    margin-left: 40px;
+}
+
+.titles .supported-countries-body div {
+    display: inline-block;
+    text-align: justify;
+}
+
+.titles .currencies-body {
+    text-align: left !important;
+}
+
+.titles .currencies-body .coins-supported-header {
+    text-align: left;
+    display: block;
+    margin-left: 12px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.titles .currencies-body div {
+    display: inline-block;
+    text-align: justify !important;
+}
+
+.titles .kyc-required-body {
+    margin-left: 20px;
+    display: grid;
+}
+
+.titles .kyc-required-body .for-personal-account {
+    text-align: left !important;
+    margin-top: 5px;
+}
+
+.titles .kyc-required-body .for-personal-account div {
+    margin-top: 10px;
+}
+
+.titles .kyc-required-body .for-business-account {
+    text-align: left !important;
+    margin-top: 10px;
+}
+
+.titles .kyc-required-body .for-business-account div {
+    margin-top: 10px;
+}
+
+/*.titles .kyc-required-body .requirements {*/
+/*display: grid;*/
+/*text-align: left !important;*/
+/*}*/
+
+.titles .kyc-required-body .buttons {
+    margin-top: 20px;
+}
+
+.buttons-container {
+    display: inline-flex;
+}
+
+.buttons-container div {
+    padding: 0 5px;
+}
+
+.titles .features-body .good-for {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.titles .features-body .good-for .goodFor-container {
+    margin-left: 20px;
+    display: inline-flex;
+}
+
+.titles .features-body .trading-options {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.titles .features-body .trading-options .trading-options-container {
+    margin-left: 20px;
+    display: inline-flex;
+}
+
+.titles .features-body .wallet-fiat {
+    display: flex;
+    margin-top: 10px;
+}
+
+.titles .features-body .wallet-fiat div {
+    margin-left: 22px
+}
+
+.titles .features-body .wallet-fiat span {
+    margin-right: 20px
+}
+
+.titles .fiat-methods {
+    display: flex;
+    margin-top: 20px;
+}
+
+.titles .features-body .two-factor-authentication {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.titles .features-body .two-factor-authentication button {
+    margin-left: 20px;
+}
+
+.titles .features-body .languages-available {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.titles .features-body .languages-available .languages-available-container {
+    margin-left: 20px;
+    display: inline-flex;
+}
+
+.titles .features-body .devices-available {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.titles .features-body .devices-available .devices-available-container {
+    margin-left: 20px;
+    display: inline-flex;
+}
+
+.titles .fees-body {
+    display: flex;
+    margin-top: 10px;
+}
+
+.selects-filter-container {
+    display: inline-grid;
+}
+
+.toggle-filters-div button {
+    width: 100%;
+}
+
+.box-for-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+    .menu-div{
+        font-size: 11px;
+    }
+}
+
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+
+    /* Header */
+    header#primary img.logo {
+        height: 30px;
+    }
+
+    .kyc-toolbar .logo-div {
+        padding: 16px 0;
+    }
+
+    .buttons-group .header-button {
+        font-size: 10px;
+        padding: 10px 0;
+    }
+
+    .buttons-group .header-button span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .toolbar {
+        width: 30px;
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hexagon-1 {
+        margin-top: 14px;
+    }
+
+    .logout-div {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+
+    .filters-div {
+        height: 200px;
+        font-size: 11px !important;
+        padding: 20px 0 0 0;
+        margin-left: -20px;
+    }
+
+    table.main {
+        font-size: 10px !important;
+    }
+
+    .bootstrap-select {
+        width: 180px !important;
+        padding: 0 20px;
+    }
+
+    .bootstrap-select button {
+        font-size: 10px;
+    }
+    .menu-div{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) and (min-width: 660px) {
+
+    /* Header */
+    header#primary img.logo {
+        height: 30px;
+    }
+
+    .kyc-toolbar .logo-div {
+        padding: 16px 0;
+    }
+
+    .buttons-group .header-button {
+        font-size: 10px;
+        padding: 10px 0;
+    }
+
+    .buttons-group .header-button span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .toolbar {
+        width: 30px;
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hexagon-1 {
+        margin-top: 14px;
+    }
+
+    .logout-div {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+
+    header#primary img.logo {
+        height: 30px;
+    }
+
+    .kyc-toolbar .logo-div {
+        padding: 16px 0;
+    }
+
+    .buttons-group .header-button {
+        font-size: 10px;
+        padding: 10px 0;
+    }
+
+    .buttons-group .header-button span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .toolbar {
+        width: 30px;
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hexagon-1 {
+        margin-top: 14px;
+    }
+
+    .logout-div {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+
+    .filters-div {
+        height: 200px;
+        font-size: 11px !important;
+        padding: 20px 0 0 0;
+        margin-left: -20px;
+    }
+
+    table.main {
+        font-size: 9px !important;
+    }
+
+    .bootstrap-select {
+        width: 180px !important;
+        padding: 0 20px;
+    }
+
+    .bootstrap-select button {
+        font-size: 10px;
+    }
+    .menu-div{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 659px) and (min-width: 500px) {
+    /* Header */
+    header#primary img.logo {
+        height: 30px;
+    }
+
+    .kyc-toolbar .logo-div {
+        padding: 16px 0;
+    }
+
+    .buttons-group .header-button {
+        font-size: 10px;
+        padding: 10px 0;
+    }
+
+    .buttons-group .header-button span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .toolbar {
+        width: 30px;
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hexagon-1 {
+        margin-top: 14px;
+    }
+
+    .logout-div {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+
+    header#primary div.logo {
+        text-align: left;
+    }
+
+    .toggle-filters-div {
+        display: block;
+    }
+
+    table.main {
+        display: none;
+    }
+
+    div#main {
+        padding: 0;
+    }
+
+    .box-for-mobile {
+        display: block;
+        border: 1px solid gray;
+        margin-top: 5px;
+    }
+
+    .box-for-mobile .box-container-header {
+        width: 100%;
+        display: inline-flex;
+    }
+
+    .box-chips {
+        display: inline-block;
+        padding: 1px;
+    }
+
+    .dropdown-menu {
+        max-width: 200px;
+    }
+
+    .filters-div {
+        height: auto;
+        padding: 2px 5px;
+    }
+
+    .selects-filter-container {
+        font-size: 12px;
+    }
+
+    .bootstrap-select {
+        width: 200px !important;
+    }
+
+    .bootstrap-select button {
+        font-size: 12px;
+    }
+
+    .box-for-mobile .box-container-market {
+        display: inline-flex;
+    }
+
+    .sidenav .header .logo-div {
+        height: 175px;
+        padding-top: 30px;
+    }
+
+    .sidenav .header .logo-div .header-buttons {
+        display: inline-grid;
+    }
+
+    .sidenav .header .logo-div .header-buttons button {
+        margin-top: 5px;
+    }
+
+    .menu-div {
+        font-size: 12px;
+    }
+
+    .titles .features-body .trading-options .trading-options-container {
+        display: inline-block;
+    }
+
+    .titles .features-body .languages-available .languages-available-container {
+        display: inline-block;
+    }
+
+    .buttons-container {
+        display: inline-block;
+    }
+
+    .buttons-container div button {
+        margin-top: 5px;
+    }
+    .menu-div{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 499px) and (min-width: 250px) {
+    /* Header */
+    header#primary img.logo {
+        height: 30px;
+    }
+
+    .kyc-toolbar .logo-div {
+        padding: 16px 0;
+    }
+
+    .buttons-group .header-button {
+        font-size: 10px;
+        padding: 10px 0;
+    }
+
+    .buttons-group .header-button span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .toolbar {
+        width: 30px;
+        height: 35px;
+        margin-right: 5px;
+    }
+
+    .hexagon-1 {
+        margin-top: 14px;
+    }
+
+    .logout-div {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+
+    header#primary div.logo {
+        text-align: left;
+        padding-left: 25px;
+    }
+
+    .toggle-filters-div {
+        display: block;
+    }
+
+    table.main {
+        display: none;
+    }
+
+    div#main {
+        padding: 0;
+    }
+
+    .box-for-mobile {
+        display: block;
+        border: 1px solid gray;
+        border-left: none;
+        border-right: none;
+        margin-top: 5px;
+    }
+
+    .box-for-mobile .box-container-header {
+        width: 100%;
+        display: inline-flex;
+    }
+
+    .box-chips {
+        display: inline-block;
+        padding: 1px;
+    }
+
+    .dropdown-menu {
+        max-width: 200px;
+    }
+
+    .filters-div {
+        height: auto;
+        padding: 2px 5px;
+    }
+
+    .selects-filter-container {
+        font-size: 12px;
+    }
+
+    .bootstrap-select {
+        width: 200px !important;
+    }
+
+    .bootstrap-select button {
+        font-size: 12px;
+    }
+
+    .box-for-mobile .box-container-market {
+        display: inline-flex;
+    }
+
+    .sidenav .header .logo-div {
+        height: 175px;
+        padding-top: 30px;
+    }
+
+    .sidenav .header .logo-div .header-buttons {
+        display: inline-grid;
+    }
+
+    .sidenav .header .logo-div .header-buttons button {
+        margin-top: 5px;
+    }
+
+    .menu-div {
+        font-size: 12px;
+    }
+
+    .titles .features-body .trading-options .trading-options-container {
+        display: inline-block;
+    }
+
+    .titles .features-body .languages-available .languages-available-container {
+        display: inline-block;
+    }
+
+    .buttons-container {
+        display: inline-block;
+    }
+
+    .buttons-container div button {
+        margin-top: 5px;
+    }
+
+    .buttons-div {
+        margin-left: 14px;
+    }
+
+    .menu-div{
+        font-size: 10px;
+    }
+}
+
+
+
+

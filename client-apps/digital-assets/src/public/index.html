@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exchanges">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="css/lib/flags.css"/>
+    <link rel="stylesheet" type="text/css" href="css/lib/main.css?digitalassets">
+</head>
+<body>
+<header id="primary" style="position: relative">
+    <div class="row kyc-toolbar" style="margin: 0">
+        <div id="a" class="col-md-3 col-sm-3 col-xs-6 logo logo-div">
+            <a href="#">
+                <img id="main-logo-with-menu" src="images/selfkey.png" alt="selfKey" class="logo brand companies">
+            </a>
+        </div>
+        <div id="d" class="col-md-3 col-sm-3 col-xs-6 row">
+            <div class="hexagon-1 toolbar profile-image col-xs-2 col-xs-offset-5">
+            </div>
+            <div class="logout-div col-xs5">
+                <span>Welcome</span>
+                <span class="link">Logout</span>
+            </div>
+        </div>
+        <div id="b" class="col-md-6 col-sm-6 col-xs-12 buttons-group row text-center">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-md-10 col-sm-10  col-md-offset-2 col-sm-offset-2 buttons-div">
+                        <a href="https://alpha.selfkey.org/#/member/keychain/main">
+                            <div class="header-button col-md-3 col-sm-3 col-xs-3">
+                                <i class="material-icons">person</i>
+                                <span>public profile</span>
+                            </div>
+                        </a>
+                        <a href="https://alpha.selfkey.org/marketplace/" target="_blank">
+                            <div class="header-button col-md-3 col-sm-3 col-xs-3 sparkle">
+                                <i class="material-icons">card_travel</i>
+                                <span>marketplace</span>
+                            </div>
+                        </a>
+                        <a href="https://alpha.selfkey.org/#/member/identity/main">
+                            <div class="header-button col-md-3 col-sm-3 col-xs-3">
+                                <i class="material-icons">perm_contact_calendar</i>
+                                <span>identity</span>
+                            </div>
+                        </a>
+                        <a href="https://alpha.selfkey.org/#/member/keychain/main">
+                            <div class="header-button col-md-3 col-sm-3 col-xs-3">
+                                <i class="material-icons">vpn_key</i>
+                                <span>keychain</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="c" class="col-md-3 col-sm-3 col-xs-6 row">
+            <div class="hexagon-1 toolbar profile-image col-xs-2 col-xs-offset-5">
+            </div>
+            <div class="logout-div col-xs5">
+                <span>Welcome</span>
+                <span class="link">Logout</span>
+            </div>
+        </div>
+</header>
+
+<div id="main" ng-controller="ExchangeController">
+    <div id="wrapper">
+        <div id="background-div" class="background-div" ng-click="closeFlyOut()"></div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" data-ng-click="closeFlyOut()">&times;</a>
+
+            <div class="top-div">
+                <div class="header text-center">
+                    <div class="logo-div" ng-show="exchangeData.data.fields['Logo'].length">
+                        <div class="header-image">
+                            <img ng-src="{{exchangeData.data.fields['Logo'][0].thumbnails.large.url}}"/>
+                        </div>
+
+                        <div class="header-buttons">
+                            <a href="https://token.selfkey.org" target="_blank" class="btn btn-primary no-outline">Sign up Personal Account</a>
+                            <a href="https://token.selfkey.org" target="_blank" class="btn btn-primary no-outline" ng-show="exchangeData.data.fields.company">Sign up Corporate Account</a>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar">
+                    <ul id="navPills" class="nav menu-div text-center">
+                        <li class="active">
+                            <a href="#section1" prevent-default="" scroll-to="section1">Description</a>
+                        </li>
+                        <li>
+                            <a href="#section2" prevent-default="" scroll-to="section2">Countries</a>
+                        </li>
+                        <li>
+                            <a href="#section3" prevent-default="" scroll-to="section3">Currencies</a>
+                        </li>
+                        <li>
+                            <a href="#section4" prevent-default="" scroll-to="section4">Features</a>
+                        </li>
+                        <li>
+                            <a href="#section5" prevent-default="" scroll-to="section5">Fees</a>
+                        </li>
+                        <li>
+                            <a href="#section6" prevent-default="" scroll-to="section6">KYC</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div scroll-spy="" data-target="#navPills" data-scroll-offset="0" class="body-div">
+                <div id="section1" class="nav-link description font-size-12 text-center"
+                     style="padding: 0 10px;text-align: justify">
+                    <div ng-bind-html="exchangeData.data.fields.trustedHtml">
+
+                    </div>
+
+
+                    <div class="company">
+
+                        <i class="fa fa-3x fa-building" aria-hidden="true"></i>
+                        <span>{{exchangeData.data.fields.Company}} </span> is a company incorporated in
+                        {{exchangeData.data.fields.countryIncorporated}} since
+                        {{exchangeData.data.fields['Year of Launch']}}
+
+                    </div>
+                    <div class="regulations">
+                        <div class="col-md-6" ng-init="casual = casualColors()">
+                            <span> Regulated by</span>
+                              <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}"
+                                    style="color: #353535"> UK Financial Conduct Authority</span>
+                        </div>
+                        <div class="col-md-6" ng-init="casual = casualColors()">
+                            <span> Licensed as</span>
+                              <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}"
+                                    style="color: #353535"> Electronic money institution</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="section2" class="nav-link titles without-margin">
+                    <div class="titles-header">
+                        Countries supported
+                    </div>
+                    <div class="supported-countries-body margin-top-5" style="font-size: 10px">
+                        <span class="exchange">{{exchangeData.data.fields.Exchange}} is avilaible for citizens/residents of : </span>
+
+                        <div class="margin-top-10">
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="country1 in exchangeData.data.fields.countries1"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{country1}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="country2 in exchangeData.data.fields.countries2"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{country2}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="section3" class="nav-link titles">
+                    <div class="titles-header">
+                        Currencies
+                    </div>
+                    <div class="currencies-body" style="font-size: 10px">
+                        <span class="coins-supported-header">Coins supported </span>
+
+                        <div class="margin-top-10">
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="coin1 in exchangeData.data.fields.coins1"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{coin1}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="coin2 in exchangeData.data.fields.coins2"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{coin2}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="currencies-body" style="font-size: 10px"
+                         ng-show="exchangeData.data.fields['Accepts Fiat']">
+                        <span class="coins-supported-header">Fiat accepted </span>
+
+                        <div class="margin-top-10">
+                            <div class="col-md-12" style="text-align: left">
+                                <div class="fiat" data-ng-repeat="fiat in exchangeData.data.fields.fiatCurrencies"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{fiat}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="currencies-body" style="font-size: 10px">
+                        <span class="coins-supported-header">Currency pairs available </span>
+
+                        <div class="margin-top-10">
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="cur1 in exchangeData.data.fields.currencies1"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{cur1}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: justify">
+                                <div data-ng-repeat="cur2 in exchangeData.data.fields.currencies2"
+                                     ng-init="casual = casualColors()">
+                                    <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">{{cur2}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="section4" class="nav-link titles" >
+                    <div class="titles-header">
+                        Features
+                    </div>
+                    <div class="features-body" style="font-size: 10px">
+                        <div class="good-for">
+                               <span>
+                                  Good for
+                               </span>
+
+                            <div class="goodFor-container">
+                                <div data-ng-repeat="goodFor in exchangeData.data.fields['Good for']"
+                                     ng-init="casual = casualColors()">
+                                 <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                     {{goodFor}}
+                                 </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trading-options">
+                               <span>
+                                 Trading options
+                               </span>
+
+                            <div class="trading-options-container">
+                                <div data-ng-repeat="opt in exchangeData.data.fields.Type"
+                                     ng-init="casual = casualColors()">
+                                       <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                          {{opt}}
+                                       </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wallet-fiat">
+                            <div ng-show="exchangeData.data.fields.Wallet">
+                                <span>Wallet</span>
+                                <button type="button" class="btn btn-primary no-outline">Available</button>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Accepts Fiat']">
+                                <span>Fiat</span>
+                                <button type="button" class="btn btn-primary no-outline">Accepted</button>
+                            </div>
+                        </div>
+                        <div class="fiat-methods">
+                            <div class="fiat-deposit-methods col-md-6"
+                                 ng-show="exchangeData.data.fields['Fiat Payment methods'].length">
+                                  <span>
+                                      Fiat deposit methods
+                                  </span>
+
+                                <div>
+                                    <div data-ng-repeat="paymentMethod in exchangeData.data.fields['Fiat Payment methods']"
+                                         ng-init="casual = casualColors()">
+                                       <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                          {{paymentMethod}}
+                                       </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fiat-withdrawal-methods col-md-6"
+                                 ng-show="exchangeData.data.fields['Fiat Withdrawal methods'].length">
+                                  <span>
+                                      Fiat withdrawal methods
+                                  </span>
+
+                                <div>
+                                    <div data-ng-repeat="withdrawalMethod in exchangeData.data.fields['Fiat Withdrawal methods']"
+                                         ng-init="casual = casualColors()">
+                                       <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                          {{withdrawalMethod}}
+                                       </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two-factor-authentication"
+                             ng-show="exchangeData.data.fields['Two-factor-authentication']">
+                            <div>
+                                <span>Two Factor Authentication</span>
+                                <button type="button" class="btn btn-primary no-outline">Available</button>
+                            </div>
+                        </div>
+                        <div class="languages-available">
+                               <span>
+                                 Languages available
+                               </span>
+
+                            <div class="languages-available-container">
+                                <div data-ng-repeat="language in exchangeData.data.fields.Languages"
+                                     ng-init="casual = casualColors()">
+                                 <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                     {{language}}
+                                 </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="devices-available">
+                               <span class="margin-top-5">
+                                 Devices/OS available
+                               </span>
+
+                            <div class="devices-available-container">
+                                <div>
+                                    <i class="fa  fa-3x fa-mobile" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['Device availability'].indexOf('Smartphone') > -1"></i>
+                                </div>
+                                <div class="margin-left-10">
+                                    <i class="fa  fa-3x fa-desktop" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['Device availability'].indexOf('Desktop') > -1"></i>
+                                </div>
+                                <div class="margin-left-10">
+                                    <i class="fa  fa-3x fa-tablet" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['Device availability'].indexOf('Tablet') > -1"></i>
+                                </div>
+
+
+                            </div>
+                            <div class="devices-available-container">
+                                <div class="margin-left-10">
+                                    <i class="fa  fa-3x fa-apple" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['OS availability'].indexOf('iOS') > -1"></i>
+                                </div>
+                                <div class="margin-left-10">
+
+                                    <i class="fa  fa-3x fa-windows" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['OS availability'].indexOf('Windows') > -1"></i>
+                                </div>
+                                <div class="margin-left-10">
+                                    <i class="fa  fa-3x fa-android" aria-hidden="true"
+                                       ng-if="exchangeData.data.fields['OS availability'].indexOf('Android') > -1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="section5" class="nav-link titles" >
+                    <div class="titles-header">
+                        Fees
+                    </div>
+                    <div class="fees-body" style="font-size: 10px">
+                        <div class="col-md-4">
+                            <div>
+                                Deposit Fees
+                            </div>
+                            <div style="margin-top: 10px" ng-show="exchangeData.data.fields['Coin deposit fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Coins
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Bank transfer deposit fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Bank transfer
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Credit/Debit card deposit fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Debit card
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                Withdraw Fees
+                            </div>
+                            <div style="margin-top: 10px" ng-show="exchangeData.data.fields['Coin withdrawal fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Coins
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Bank transfer withdrawal fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Bank transfer
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Debit card withdrawal fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Credit/Debit card
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                Trading Fees
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Buy/Sell Fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Buy/Sell
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Maker Fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Market Maker
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm no-outline">Free</button>
+                                </div>
+                            </div>
+                            <div ng-show="exchangeData.data.fields['Taker Fee']">
+                                <div class="col-md-6 margin-top-5">
+                                    Market Taker
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    <button type="button" class="btn btn-primary btn-sm  no-outline">Free</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="section6" class="nav-link titles"  style="padding-bottom: 20px">
+                    <div class="titles-header">
+                        KYC Required
+                    </div>
+                    <div class="kyc-required-body" style="font-size: 10px">
+                        <div class="for-personal-account">
+                               <span>
+                                   For-Personal-account
+                               </span>
+
+                            <div data-ng-repeat="ind in exchangeData.data.fields['KYC Individuals']"
+                                 ng-init="casual = casualColors()">
+                                 <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                     {{ind}}
+                                 </span>
+                            </div>
+                        </div>
+                        <div class="for-business-account"
+                             data-ng-show="exchangeData.data.fields['KYC Companies'].length">
+                               <span>
+                                   For-Business-account
+                               </span>
+
+                            <div data-ng-repeat="company in exchangeData.data.fields['KYC Companies']"
+                                 ng-init="casual = casualColors()">
+                                 <span class="margin-1 font-size-9 custom-chip custom-chip-{{casual}}">
+                                     {{company}}
+                                 </span>
+                            </div>
+                        </div>
+                        <div class="buttons text-center">
+                            <div class="buttons-container">
+                                <div>
+                                    <button type="button" class="btn btn-primary no-outline">Sign up Personal Account
+                                    </button>
+                                </div>
+                                <div>
+                                    <button ng-show="exchangeData.data.fields.company" type="button"
+                                            class="btn btn-primary no-outline res-margin">Sign up Corporate Account
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div style="margin-top: 10px">
+                                <button type="button" class="btn btn-primary no-outline">Upload Documents</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toggle-filters-div">
+            <button ng-click="filtersDiv = !filtersDiv" type="button" class="btn btn-info no-outline">filters</button>
+        </div>
+        <div ng-show="filtersDiv" class="text-center filters-div">
+            <div class="col-md-6 col-sm-6 selects-filter-container">
+                <div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Available in</span>
+                        <select ng-model="selectedCountries" class="selectpicker" multiple
+                                ng-change="onFilterChange(selectedCountries)">
+                            <option data-ng-repeat="(key, value) in filterSupportedCountries">{{key}}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Language</span>
+                        <select ng-model="selectedLanguages" class="selectpicker" multiple
+                                ng-change="onFilterChange(selectedLanguages)">
+                            <option data-ng-repeat="(key, value) in filterAvailableLanguages">{{key}}</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Coins available</span>
+                        <select ng-model="selectedCoins" class="selectpicker" multiple
+                                ng-change="onFilterChange(selectedCoins)">
+                            <option data-ng-repeat="(key, value) in filterAvailableCoins">{{key}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Fiat supported</span>
+                        <select ng-model="selectedFiats" class="selectpicker" multiple ng-change="onFilterChange()">
+                            <option data-ng-repeat="(key, value) in filterSupportedFiat">{{key}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 selects-filter-container">
+                <div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Trading</span>
+                        <select ng-model="selectedTypes" class="selectpicker" multiple
+                                ng-change="onFilterChange()">
+                            <option data-ng-repeat="(key, value) in filterSupportedTypes">{{key}}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Account Type</span>
+                        <select ng-model="selectedAccounts" class="selectpicker" multiple
+                                ng-change="onFilterChange(selectedLanguages)">
+                            <option data-ng-repeat="(key, value) in filterSupportedAccounts">{{key}}</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Fiat Deposit</span>
+                        <select ng-model="selectedFiatDeposits" class="selectpicker" multiple
+                                ng-change="onFilterChange(selectedCoins)">
+                            <option data-ng-repeat="(key, value) in filterSupportedFiatDeposits">{{key}}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 margin-top-5">
+                        <span class="display-block">Cross Platform</span>
+                        <select ng-model="selectedCrossPlatforms" class="selectpicker" multiple
+                                ng-change="onFilterChange()">
+                            <option data-ng-repeat="(key, value) in filterSupportedCrossPlatforms">{{key}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="exchanges-loaded">
+            <div class="row filters">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <div class="row table-container">
+                <div class="box-for-mobile" data-ng-repeat="exchange in exchanges | filter:exchangeFilter">
+                    <div class="box-container-header">
+                        <div class="container-fluid full-width">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-4 text-left">
+                                    <img width="100px"
+                                         height="auto"
+                                         ng-src="{{exchange.data.fields['Logo'][0].thumbnails.small.url}}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-6 f32 text-center">
+                             <span class="flag" ng-class="country"
+                                   ng-repeat="country in exchange.data.fields.CountryIncorporatedCss">
+  
+                             </span>
+                                </div>
+                                <div class="col-sm-2 col-xs-2 f32 text-right">
+                                    <button ng-click="openFlyOut(exchange)" class="btn btn-default no-outline"
+                                            type="submit">...
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-left-5">
+                        <div class="box-container-coins margin-top-10">
+                            <span>Coins available</span>
+
+                            <div>
+                                <div class="box-chips"
+                                     data-ng-repeat="coin in exchange.data.fields['Cryptocurrencies/Tokens supported']"
+                                     ng-init="casual = casualColors()">
+                                    <span class="custom-chip custom-chip-{{casual}}">{{coin}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-container-fiat margin-top-10">
+                            <span>Fiat Currencies accepted</span>
+
+                            <div>
+                                <div class="box-chips"
+                                     data-ng-repeat="cur in exchange.data.fields.fiatAcceptedCurrencies"
+                                     ng-init="casual = casualColors()">
+                                    <span class="custom-chip custom-chip-{{casual}}">{{cur}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-container-type margin-top-10">
+                            <span>Trading options</span>
+
+                            <div class="box-chips" data-ng-repeat="type in exchange.data.fields.Type"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{type}}</span>
+                            </div>
+                        </div>
+                        <div class="box-container-type margin-top-10">
+                            <span>Good for</span>
+
+                            <div class="box-chips" data-ng-repeat="goodFor in exchange.data.fields['Good for']"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{goodFor}}</span>
+                            </div>
+                        </div>
+                        <div class="box-container-market margin-top-10">
+                            <div class="col-md-6">
+                              <span>
+                                  Market Maker Fee
+                              </span>
+
+                                <div>
+                                    {{exchange.data.fields['Maker Fee']}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <span>
+                                  Market Taker Fee
+                              </span>
+
+                                <div>
+                                    {{exchange.data.fields['Taker Fee']}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <table class="main exchanges">
+                    <thead id="table-head">
+                    <tr>
+                        <th class="exchange">Exchange</th>
+                        <th class="exchange">Incorporated in</th>
+                        <th class="exchange">Coins available</th>
+                        <th class="exchange">Fiat currencies Accepted</th>
+                        <th class="exchange">Trading options</th>
+                        <th class="exchange">Good for</th>
+                        <th class="exchange">Market Maker fee</th>
+                        <th class="exchange">Market Taker fee</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="open-modal" data-ng-repeat="exchange in exchanges | filter:exchangeFilter"
+                        data-ng-click="openFlyOut(exchange)">
+                        <td class="exchange">
+                            <img width="100px"
+                                 height="auto"
+                                 ng-src="{{exchange.data.fields['Logo'][0].url}}"/>
+                        </td>
+                        <td class="exchange f32">
+                                  <span class="flag" ng-class="country"
+                                        ng-repeat="country in exchange.data.fields.CountryIncorporatedCss"></span>
+                        </td>
+                        <td class="more-on-hover">
+                            <div data-ng-repeat="coin in exchange.data.fields['Cryptocurrencies/Tokens supported']"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{coin}}</span>
+                            </div>
+                        </td>
+                        <td class="more-on-hover">
+                            <div data-ng-repeat="cur in exchange.data.fields.fiatAcceptedCurrencies"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{cur}}</span>
+                            </div>
+                        </td>
+                        <td class="more-on-hover">
+                            <div data-ng-repeat="type in exchange.data.fields.Type"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{type}}</span>
+                            </div>
+                        </td>
+                        <td class="more-on-hover">
+                            <div data-ng-repeat="goodFor in exchange.data.fields['Good for']"
+                                 ng-init="casual = casualColors()">
+                                <span class="custom-chip custom-chip-{{casual}}">{{goodFor}}</span>
+                            </div>
+                        </td>
+                        <td class="market-maker-fee">
+                            {{exchange.data.fields['Maker Fee']}}
+                        </td>
+                        <td class="market-taker-fee">
+                            {{exchange.data.fields['Taker Fee']}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="col-md-6">
+        Copyright 2017
+    </div>
+</footer>
+
+<!-- Latest compiled and minified JavaScript -->
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://use.fontawesome.com/e95ea05202.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/main.js?digitalassets"></script>
+
+</body>
+</html>

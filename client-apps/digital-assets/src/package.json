@@ -1,0 +1,17 @@
+{
+  "name": "marketplaceapp-digital-assets",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/http-server public -a localhost -p 3000 -c-1",
+    "server": "./node_modules/.bin/http-server public -a localhost -p 3000 -c-1",
+    "dev": "./node_modules/.bin/http-server public -a localhost -p 3000 -c-1"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "http-server": "^0.10.0",
+    "dotenv": "latest",
+    "nodemon": "latest"
+  }
+}
