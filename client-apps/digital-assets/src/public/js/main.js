@@ -756,7 +756,7 @@ exchanges.controller("ExchangeController", ['$scope', '$http', '$sce', 'exchange
     loadData();
 
     function loadData() {
-        const apiURL = 'https://alpha.selfkey.org/marketplace/i/api/digital-assets';
+        const apiURL = '';
         $http.get(apiURL).then(function (response) {
             $scope.exchanges = response.data.Exchanges;
             console.log('$scope.exchanges', $scope.exchanges);
