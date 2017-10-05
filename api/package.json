@@ -1,0 +1,39 @@
+{
+  "name": "marketplaces-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "dev": "DEBUG=app nodemon ./index.js"
+  },
+  "dependencies": {
+    "airtable": "latest",
+    "apicache": "^1.1.0",
+    "body-parser": "latest",
+    "cheerio": "latest",
+    "choices.js": "latest",
+    "cookie-parser": "latest",
+    "debug": "latest",
+    "dotenv": "latest",
+    "ejs": "latest",
+    "errorhandler": "latest",
+    "express": "latest",
+    "express-ejs-layouts": "latest",
+    "express-session": "latest",
+    "http2": "latest",
+    "i18n": "latest",
+    "jade": "latest",
+    "morgan": "latest",
+    "mysql": "latest",
+    "mz": "latest",
+    "promise-mysql": "latest",
+    "request": "latest",
+    "serve-favicon": "latest",
+    "session-file-store": "latest",
+    "spdy": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest",
+    "wenk": "latest"
+  }
+}

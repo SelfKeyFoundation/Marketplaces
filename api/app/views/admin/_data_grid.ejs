@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col">
+    <% if (data.length) { %>
+      <table class="table table-sm table-admin">
+        <thead>
+          <tr>
+            <% for (var prop in data[0].data.fields) { %>
+              <th><%= prop %></th>
+            <% }; %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% data.forEach(function(item) { %>
+            <% var fields = item.data.fields; %>
+            <tr>
+              <% for (var prop in fields) { %>
+                <td>
+                  <% let _data = fields[prop]; %>
+                  <% if (typeof _data === 'object') { %>
+                    <% _data.forEach(function(photo) { %>
+                      <% if (photo.url) { %>
+                        <img style="width: 100px" src="<%=helpers.getPhotoThumbURL(photo)%>">
+                      <% } else { %>
+                        <span title="<%= photo %>"><%= photo %></span>
+                      <% } %>
+                    <% }); %>
+                  <% } else { %>
+                    <span title="<%=_data%>"><%=_data%></span>
+                  <% }; %>
+                </td>
+              <% }; %>
+              </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</div>

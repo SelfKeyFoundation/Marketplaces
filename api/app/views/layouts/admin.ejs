@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%=title%></title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width">
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <link rel="stylesheet" href="<%=site_path%>/js/vendor/choices.js/assets/styles/css/choices.min.css">
+  <link rel="stylesheet" href="<%=site_path%>/css/flag-icon.css">
+  <link rel="stylesheet" href="<%=site_path%>/css/modal.css">
+  <link rel="stylesheet" href="<%=site_path%>/css/application.css?<%= Math.floor(Date.now() / 1000) %>">
+
+</head>
+<body>
+<div class="container-fluid">
+    <%- include ../admin/_header %>
+      <div class="main">
+      <%-body%>
+      </div>
+    <%- include ../admin/_footer %>
+  </div>
+
+  <script src="<%=site_path%>/js/vendor/choices.js/assets/scripts/dist/choices.min.js"></script>
+  <script src="<%=site_path%>/js/modal.js"></script>
+  <script src="<%=site_path%>/js/application.js"></script>
+</body>
+</html>

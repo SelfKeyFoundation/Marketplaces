@@ -1,0 +1,49 @@
+
+<div class="jumbotron">
+  <h1 class="display-3">Administration Panel</h1>
+  <p class="lead">TODO: instructions</p>
+  <hr class="my-4">
+
+  <div class="lead">
+    <div class="row">
+      <div class="col">
+        <form method="POST" action="<%=site_path%>/admin/sync/passports" style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Passports</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/physicalassets"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Physical Assets</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/digitalassets"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Digital Assets</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/realestate"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Real Estate</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/incorporations"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Incorporations</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/bankaccounts"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Bank Accounts</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/healthinsurance"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Health Insurance</button>
+        </form>
+        <form method="POST" action="<%=site_path%>/admin/sync/countries"  style="display: inline-block">
+          <button type="submit" class="btn btn-secondary">Sync Countries</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top: 2em">
+    System Info:
+    <ul>
+      <li>Database host: <%=dbconfig.host%></li>
+      <li>Database name: <%=dbconfig.database%></li>
+    </ul>
+    <ul>
+      <li>Data Airtables: <%=atconfig.data_tables%></li>
+      <li>Translation Airtables: <%=atconfig.translation_tables%></li>
+    </ul>
+  </p>
+</div>

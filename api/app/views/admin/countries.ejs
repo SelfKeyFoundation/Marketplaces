@@ -1,0 +1,27 @@
+<% if (countries.length) { -%>
+  <table class="table table-hover table-sm country-list table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%=__('Country')%></th>
+        <th><%=__('Visa Free Countries')%></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% countries.forEach(function(country) { -%>
+        <tr>
+          <td><span class="flag-icon flag-icon-<%=country['code'].toLowerCase()%>"></span>
+          <td><%= country['name'] %></td>
+          <% let total = visa.reduce(function(sum, v) { if (v['countryCode'].toLowerCase() == country['code'].toLowerCase()) { sum++ }; return sum; }, 0); %>
+          <td><%= total %></td>
+          <td class="numeric">
+            <form method="POST" action="<%=site_path%>/admin/sync/visa/<%=country['code'].toLowerCase()%>">
+              <button type="submit" class="btn btn-secondary btn-sm">Sync Visa Data</button>
+            </form>
+          </td>
+        </tr>
+      <% }); -%>
+    </tbody>
+  </table>
+<% } -%>
