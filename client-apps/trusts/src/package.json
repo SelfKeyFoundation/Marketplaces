@@ -1,0 +1,17 @@
+{
+	"name": "marketplaceapp-trusts",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "./node_modules/.bin/http-server public -a localhost -p 3000 -c-1",
+		"server": "./node_modules/.bin/http-server public -a localhost -p 3000 -c-1",
+		"dev": "DEBUG=app nodemon ./index.js"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"concurrently": "latest",
+		"http-server": "^0.10.0",
+		"nodemon": "latest"
+	}
+}

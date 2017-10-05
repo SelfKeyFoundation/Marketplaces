@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="marketPlaceApp">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/flag-icon.css">
+  <link rel="stylesheet" href="css/application.css">
+
+  <script src="js/tether.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/vanilla/vendor/bootstrap-4.0.0.min.js"></script>
+
+  <!-- rz slider -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
+
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+  <div id="root" class="container-fluid p-0" ng-controller="ListController">
+
+    <header class="" style="background: #2d3642">
+      <nav class="navbar  navbar-toggleable-md navbar-light">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/marketplace/wallets/en">
+          <img src="images/self-key-white.png">
+        </a>
+
+        <ul class="nav mx-auto header-buttons collapse navbar-collapse" style="">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              Public Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/marketplace">
+              <i class="material-icons">card_travel</i>
+              Marketplace
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">perm_contact_calendar</i>
+              Identity
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="collapse navbar-collapse float-right justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-en"></span> <span class="visible-sm-down">en</span></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/marketplace/wallets/en"><span class="flag-icon flag-icon-us"></span> EN</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="header_authentication">
+                <img src="images/login.png" alt="login">
+              </div>
+            </li>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="header-site-title" style="background: linear-gradient(rgb(206, 234, 242) 1%, rgb(206, 234, 242) 72%, rgb(255, 255, 255) 100%);">
+      <div class="category-item text-center">
+        <div class="shape">
+          <a href="" class="category-link">
+            <img src="images/site-logo.png" alt="">
+          </a>
+        </div>
+        <h1 class="bold_text">INCORPORATIONS</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.corporation"
+                    ng-change="checkBoxChange(filter.corporation, 'corporation', 'llc')"/>Corporate/LLC</label>
+            </div>
+            <div class="filter-buttons">
+              <button type="button" ng-click="selecFilterType('corporation')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.corporation == 1}, {'state-off': filterData.corporation == 2}]">
+                  <i ng-if="filterData.corporation == 1" class="fa fa-check" aria-hidden="true"></i>
+                  <i ng-if="filterData.corporation == 2" class="fa fa-ban" aria-hidden="true"></i>
+                  Corporation
+                </button>
+              <button type="button" ng-click="selecFilterType('llc')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.llc == 1}, {'state-off': filterData.llc == 2}]">
+                  <i ng-if="filterData.llc == 1" class="fa fa-check" aria-hidden="true"></i>
+                  <i ng-if="filterData.llc == 2" class="fa fa-ban" aria-hidden="true"></i>
+                  LLC
+                </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkOwnerShip"
+                ng-change="checkBoxChange(filter.checkOwnerShip, 'corporateDirectors', 'corporateShareHolder')"/>Corporate Ownership</label>
+            </div>
+            <div class="filter-buttons">
+              <button type="button" ng-click="selecFilterType('corporateDirectors')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.corporateDirectors == 1}, {'state-off': filterData.corporateDirectors == 2}]">
+              <i ng-if="filterData.corporateDirectors == 1" class="fa fa-check" aria-hidden="true"></i>
+              <i ng-if="filterData.corporateDirectors == 2" class="fa fa-ban" aria-hidden="true"></i>
+              Corporate directors
+            </button>
+              <button type="button" ng-click="selecFilterType('corporateShareHolder')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.corporateShareHolder == 1}, {'state-off': filterData.corporateShareHolder == 2}]">
+              <i ng-if="filterData.corporateShareHolder == 1" class="fa fa-check" aria-hidden="true"></i>
+              <i ng-if="filterData.corporateShareHolder == 2" class="fa fa-ban" aria-hidden="true"></i>
+              Corporate shareholder
+            </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkOffshore"
+                ng-change="checkBoxChange(filter.checkOffshore, 'cfcLaws', 'taxExemptions')"/>Offshore</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('cfcLaws')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.cfcLaws == 1}, {'state-off': filterData.cfcLaws == 2}]">
+                <i ng-if="filterData.cfcLaws == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.cfcLaws == 2" class="fa fa-ban" aria-hidden="true"></i>
+                CFC Laws
+              </button>
+              <button ng-click="selecFilterType('taxExemptions')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline',  {'state-on': filterData.taxExemptions == 1}, {'state-off': filterData.taxExemptions == 2}]">
+                <i ng-if="filterData.taxExemptions == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.taxExemptions == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Tax Exemptions
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <label>Corp Tax Rate (%)</label>
+            <rzslider rz-slider-model="cortpTaxRateFilter.value" rz-slider-options="cortpTaxRateFilter.options"></rzslider>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkSole"
+                ng-change="checkBoxChange(filter.checkSole, 'minimumShareHolder', 'minimumDirectors')"/>Sole shareholder</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('minimumShareHolder')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.minimumShareHolder == 1}, {'state-off': filterData.minimumShareHolder == 2}]">
+                <i ng-if="filterData.minimumShareHolder == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.minimumShareHolder == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Minimum shareholders
+              </button>
+              <button ng-click="selecFilterType('minimumDirectors')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.minimumDirectors == 1}, {'state-off': filterData.minimumDirectors == 2}]">
+                <i ng-if="filterData.minimumDirectors == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.minimumDirectors == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Minimum directors
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkLocalRequirments"
+                ng-change="checkBoxChange(filter.checkLocalRequirments, 'localDirector', 'localSecretary')"/>No Local Requirements</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('localDirector')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.localDirector == 1}, {'state-off': filterData.localDirector == 2}]">
+                <i ng-if="filterData.localDirector == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.localDirector == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Local director
+              </button>
+              <button ng-click="selecFilterType('localSecretary')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.localSecretary == 1}, {'state-off': filterData.localSecretary == 2}]">
+                <i ng-if="filterData.localSecretary == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.localSecretary == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Local secretary
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkEasyTransfer"
+                ng-change="checkBoxChange(filter.checkEasyTransfer, 'isRedomiciliation', 'isExchangeControls')"/>Easy Transfer</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('isRedomiciliation')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isRedomiciliation == 1}, {'state-off': filterData.isRedomiciliation == 2}]">
+                <i ng-if="filterData.isRedomiciliation == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isRedomiciliation == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Redomiciliation
+              </button>
+              <button ng-click="selecFilterType('isExchangeControls')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isExchangeControls == 1}, {'state-off': filterData.isExchangeControls == 2}]">
+                <i ng-if="filterData.isExchangeControls == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isExchangeControls == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Exchange controls
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <label>Has a tax treaty with</label>
+            <select ng-model="filterData.haveTaxtTreatyCountry" ng-change="filterTableData()" class="form-control" style="margin-top: 15px">
+              <option></option>
+              <option ng-repeat="country in countryList" ng-value="{{country}}">
+                  {{country.name}}
+                </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkEasyAccounting"
+                ng-change="checkBoxChange(filter.checkEasyAccounting, 'isAnnualReturn', 'isAuditedAccounts')"/>Easy Accounting</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('isAnnualReturn')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isAnnualReturn == 1}, {'state-off': filterData.isAnnualReturn == 2}]">
+                <i ng-if="filterData.isAnnualReturn == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isAnnualReturn == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Annual return
+              </button>
+              <button ng-click="selecFilterType('isAuditedAccounts')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isAuditedAccounts == 1}, {'state-off': filterData.isAuditedAccounts == 2}]">
+                <i ng-if="filterData.isAuditedAccounts == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isAuditedAccounts == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Auditied accounts
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.checkPrivacy"
+                ng-change="checkBoxChange(filter.checkPrivacy, 'isDirectorDisclosure', 'isSharedHoldersDisclosure')"/>Privacy</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('isDirectorDisclosure')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isDirectorDisclosure == 1}, {'state-off': filterData.isDirectorDisclosure == 2}]">
+                <i ng-if="filterData.isDirectorDisclosure == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isDirectorDisclosure == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Directors disclosure
+              </button>
+              <button ng-click="selecFilterType('isSharedHoldersDisclosure')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.isSharedHoldersDisclosure == 1}, {'state-off': filterData.isSharedHoldersDisclosure == 2}]">
+                <i ng-if="filterData.isSharedHoldersDisclosure == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.isSharedHoldersDisclosure == 2" class="fa fa-ban" aria-hidden="true"></i>
+                Shareholders disclosure
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="checkbox">
+              <label><input type="checkbox" ng-model="filter.AEOI" ng-change="checkBoxChange(filter.AEOI, 'AEOI')" />AEOI</label>
+            </div>
+            <div class="filter-buttons">
+              <button ng-click="selecFilterType('AEOI')" ng-class="['btn', 'btn-primary', 'btn-lg', 'outline', {'state-on': filterData.AEOI == 1}, {'state-off': filterData.AEOI == 2}]">
+                <i ng-if="filterData.AEOI == 1" class="fa fa-check" aria-hidden="true"></i>
+                <i ng-if="filterData.AEOI == 2" class="fa fa-ban" aria-hidden="true"></i>
+                AEOI
+              </button>
+            </div>
+          </div>
+          <div class="filter">
+            <label>Does not have a tax treaty with</label>
+            <select ng-model="filterData.notHaveTaxtTreatyCountry" ng-change="filterTableData()" class="form-control" style="margin-top: 15px">
+                <option></option>
+                <option ng-repeat="country in countryList" ng-value="{{country}}">
+                    {{country.name}}
+                  </option>
+              </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="App-ListView">
+
+      <div ng-if="!result" style="margin-top: 20px">
+        Loading results...
+      </div>
+
+      <span>{{a}}</span>
+      <div ng-if="result.length" style="margin-top: 20px">
+        <table class="table country-list table-striped fixed-layout">
+          <thead>
+            <tr>
+              <th style="width: 15%">JURISDICTION</th>
+              <th style="width: 20%">TYPE</th>
+              <th style="width: 10%">OFFSHORE TAX</th>
+              <th style="width: 5%">TAX</th>
+              <th style="width: 15%">GOOD FOR</th>
+              <th style="width: 25%">LEGAL BASIS</th>
+              <th style="width: 10%">TIME TO FORM(days)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in result">
+              <td>
+                <img width="16px" height="11px" src="{{item.countryImgSrc}}" /> {{item.region}}
+              </td>
+              <td>{{item.type}}</td>
+              <td>{{item.offshoreTax}}</td>
+              <td>{{item.tax}}</td>
+              <td class="hidden-sm-down visible-on-hover relevant-countries">
+                <a ng-repeat="godForItem in item.goodFor" style="background-color: transparent; color: #000; border: 1px solid #ccc" ng-class="['badge-filter', 'badge', 'badge-default', {'visible-on-hover':$index > 2}]">
+                  {{godForItem}}
+                </a>
+              </td>
+              <td class="hidden-sm-down visible-on-hover">
+                <a ng-repeat="legalBase in item.legalBasis" style="background-color: transparent; color: #000; border: 1px solid #ccc" ng-class="['badge-filter', 'badge', 'badge-default', {'visible-on-hover':$index > 2}]">
+                    {{legalBase}}
+                  </a>
+              </td>
+              <td>{{item.timeToForm}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Modal -->
+        <!-- <div id="keyPoints" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+           Modal content
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{selectedItem['Insurance Company'] + ' Key Points'}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <ul>
+                  <li ng-repeat="keyItem in selectedItem['Key Points']">
+                    {{ keyItem }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+        <footer class="row" id="App-Footer">
+          <div class="col-md-6">Copyright 2017</div>
+          <div class="col-md-6 text-right">
+            <a target="_blank" href="https://ideas.incorporations.io">Feedback & Feature Requests</a>
+          </div>
+        </footer>
+      </div>
+
+      <script src="js/application.js"></script>
+
+
+      <script>
+        document.body.onload = function () {
+          var fonts = ['Source+Sans+Pro:200,400,700'];
+          var url = 'https://fonts.googleapis.com/css?family=';
+          fonts.forEach(function (font) {
+            // To load multiple fonts in one call we just separete the fonts with the | character
+            url += font + "|";
+          });
+          url = url.replace(/\|$/, '');
+          loadFont(url);
+        }
+        function loadFont(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              var style = document.createElement('style');
+              style.innerHTML = xhr.responseText;
+              document.head.appendChild(style);
+            }
+          };
+          xhr.send();
+        }
+      </script>
+
+</body>
+
+</html>

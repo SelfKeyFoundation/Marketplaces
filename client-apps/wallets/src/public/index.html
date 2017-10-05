@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="marketplaceApp">
+<head>
+  <title>Digital Wallets Marketplace</title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap-3-styles.css">
+  <link rel="stylesheet" href="css/flag-icon.css">
+  <link rel="stylesheet" href="css/application.css?wallets">
+
+
+  <script data-require="jquery@*" data-semver="1.9.1" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+  <script src="js/bootstrap-3-scripts.js"></script>
+
+  <!--<script data-require="bootstrap@2.3.2" data-semver="2.3.2" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
+  <script src="js/directives/directives.js"></script>
+  <script src="js/tether.min.js"></script>
+  <script src="js/angular-bootstrap-multiselect.min.js"></script>
+</head>
+<body>
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+<div id="root" class="container-fluid" style="padding: 0">
+  <!--Header copied from passports-->
+  <header class="" style="background: #2d3642">
+    <nav class="navbar  navbar-toggleable-md navbar-light">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/marketplace/wallets/en">
+        <img src="images/self-key-white.png">
+      </a>
+
+      <ul class="nav mx-auto header-buttons collapse navbar-collapse" style="">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="material-icons">person</i>
+            Public Profile
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/marketplace">
+            <i class="material-icons">card_travel</i>
+            Marketplace
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="material-icons">perm_contact_calendar</i>
+            Identity
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="collapse navbar-collapse float-right justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-en"></span> <span class="visible-sm-down">en</span></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/marketplace/wallets/en"><span class="flag-icon flag-icon-us"></span> EN</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="header_authentication">
+              <img src="images/login.png" alt="login">
+            </div>
+          </li>
+        </div>
+      </div>
+    </nav>
+    <script>
+      class Application {
+        constructor() {
+          const dropdown = document.querySelector('a.dropdown-toggle');
+          dropdown.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.parentNode.classList.toggle('show');
+            return false;
+          });
+
+          this._cacheDOM();
+          this._setEventListeners();
+        }
+
+        _cacheDOM() {
+          this.navBarToggleButtonEl = document.querySelector('button.navbar-toggler');
+        }
+
+        _setEventListeners() {
+          this.navBarToggleButtonEl.addEventListener('click', this.showNavBar);
+        }
+
+        showNavBar() {
+          const target = this.getAttribute('data-target');
+          document.querySelector(target).classList.toggle('collapse');
+        }
+      }
+
+      new Application();
+    </script>
+  </header>
+
+  <div class="App-ListView" ng-controller="ListController">
+    <div ng-if="!list">
+      Loading results...
+    </div>
+    <div ng-if="list.length > 0" class="site-title-outer open">
+      <div class="site-title">
+        <div class="hexagon"><img src="images/site-logo.png" alt="Digital Wallets Marketplace"></div>
+        <h1 class="site-name">Digital Wallets Marketplace</h1>
+      </div>
+
+      <div class="filters" ng-class="{'closed': filtersClosed}">
+        <button type="button" class="btn btn-outline-secondary" id="toggleFiltersButton" ng-click="filtersClosed = !filtersClosed">{{filtersClosed ? 'Show filters' : 'Hide filters'}}</button>
+        <div class="filter-wrapper countries">
+          <div>Available in</div>
+          <multiselect ng-model="countriesFilterData.selection" options="countriesFilterData.options" show-search="true" search-limit="7" class="country-multiselect"></multiselect>
+        </div>
+        <div class="filter-wrapper countries">
+          <div>Currencies</div>
+          <multiselect ng-model="currenciesFilterData.selection" options="currenciesFilterData.options" show-search="true" search-limit="7" class="country-multiselect"></multiselect>
+        </div>
+        <div class="filter-wrapper">
+          <div>Withdraw Funds Via Bank Transfer</div>
+          <button type="button" ng-click="filters.withdrawFundsViaBankTransfer.toggle()" class="toggle-filter btn" ng-class="filters.withdrawFundsViaBankTransfer.active().class"><i class="fa fa-{{filters.withdrawFundsViaBankTransfer.active().iconClass}}" aria-hidden="true"></i> {{filters.withdrawFundsViaBankTransfer.active().text}}</button>
+        </div>
+        <div class="filter-wrapper">
+          <div>Pre-paid card</div>
+          <button type="button" ng-click="filters.prePaidCard.toggle()" class="toggle-filter btn" ng-class="filters.prePaidCard.active().class"><i class="fa fa-{{filters.prePaidCard.active().iconClass}}" aria-hidden="true"></i> {{filters.prePaidCard.active().text}}</button>
+        </div>
+        <div class="filter-wrapper">
+          <div>Account Type</div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.accountTypeConsumer.toggle()" class="btn" ng-class="filters.accountTypeConsumer.active().class">Consumer</button>
+            <button type="button" ng-click="filters.accountTypeBusiness.toggle()" class="btn" ng-class="filters.accountTypeBusiness.active().class">Business</button>
+          </div>
+        </div>
+        <div class="filter-wrapper">
+          <div>Wallet</div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.walletPrePaidPayment.toggle()" class="btn" ng-class="filters.walletPrePaidPayment.active().class">Prepaid Payment</button>
+            <button type="button" ng-click="filters.walletVirtualCurrentAccount.toggle()" class="btn" ng-class="filters.walletVirtualCurrentAccount.active().class">Virtual Current Account</button>
+          </div>
+        </div>
+        <div class="filter-wrapper">
+          <div>Add Funds</div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.addFundBankTransfer.toggle()" class="btn" ng-class="filters.addFundBankTransfer.active().class">Bank Transfer</button>
+            <button type="button" ng-click="filters.addFundCreditCard.toggle()" class="btn" ng-class="filters.addFundCreditCard.active().class">CreditCard</button>
+          </div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.addFundDebitCard.toggle()" class="btn" ng-class="filters.addFundDebitCard.active().class">Debit Card</button>
+            <button type="button" ng-click="filters.addFundOthers.toggle()" class="btn" ng-class="filters.addFundOthers.active().class">Others</button>
+          </div>
+        </div>
+        <div class="filter-wrapper">
+          <div>Cross Platform</div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.platformIos.toggle()" class="btn" ng-class="filters.platformIos.active().class">iOS</button>
+            <button type="button" ng-click="filters.platformAndroid.toggle()" class="btn" ng-class="filters.platformAndroid.active().class">Android</button>
+            <button type="button" ng-click="filters.platformWindows.toggle()" class="btn" ng-class="filters.platformWindows.active().class">Windows</button>
+          </div>
+          <div class="filters-buttons">
+            <button type="button" ng-click="filters.platformSmartphone.toggle()" class="btn" ng-class="filters.platformSmartphone.active().class">Smartphone</button>
+            <button type="button" ng-click="filters.platformTablet.toggle()" class="btn" ng-class="filters.platformTablet.active().class">Tablet</button>
+            <button type="button" ng-click="filters.platformDesktop.toggle()" class="btn" ng-class="filters.platformDesktop.active().class">Desktop</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="list.length > 0">
+      <!--{{list[8]}}-->
+      <table class="table table-stripped table-responsive main-table" ng-disabled="selectedWallet">
+        <thead>
+        <tr>
+          <th>Wallet</th>
+          <th>Type</th>
+          <th>Country</th>
+          <th>Available for citizens/residents of</th>
+          <th>Currencies Available</th>
+          <th>Maximum Stored Balance</th>
+          <th>Daily Transaction Limit</th>
+          <th>Add funds</th>
+          <th>Payment fee</th>
+          <th>Withdraw funds fee (bank transfer)</th>
+          <th>Currency Exchange fee</th>
+          <th class="text-right">Pre-paid Card</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="wallet in list" ng-click="toggleFlyout(wallet)" ng-if="wallet['Code'] && passesFilters(wallet)">
+          <td><img ng-src="{{wallet.Logo[0].url}}" alt="{{wallet['Company']}}"></td>
+          <td>
+            <div class="limit-height"><span ng-repeat="type in wallet.Type" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{type}}</span></div>
+          </td>
+          <td>
+            <div class="limit-height"><i ng-repeat="country in wallet['Country incorporated']" class="flag-icon flag-icon-{{isoCountries[country] | lowercase}}"></i></div>
+          </td>
+          <td class="show-only-part">
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span ng-repeat="country in wallet['Countries available']" class="badge badge-info" style="background-color: transparent; color: #000; border: 1px solid #ccc">{{country}}</span>
+            </div>
+          </td>
+          <td class="show-only-part">
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span ng-repeat="currency in wallet['Currencies available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{currency}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="limit-height">{{wallet['Maximum stored balance']}}</div>
+          </td>
+          <td>
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span>{{wallet['Daily Transaction Limit']}}</span>
+            </div>
+          </td>
+          <td class="show-only-part">
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span ng-repeat="fund in wallet['Add funds']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{fund}}</span></div>
+          </td>
+          <td>
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span>{{wallet['Payment fee']}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span>{{wallet['Withdrawal (Bank account) fee']}}</span>
+            </div>
+          </td><!--fixme is it the right property-->
+          <td>
+            <div class="limit-height">
+              <div class="more-button btn btn-warning" ng-click="showFullInfo($event)"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+              <span>{{wallet['Currency exchange fee']}}</span>
+            </div>
+          </td>
+          <td class="popover-host">
+            <span ng-init="wallet.popoverOpened1=false" ng-mouseover="wallet.popoverOpened1=true" ng-mouseleave="wallet.popoverOpened1=false">{{popoverOpened1}}
+            <img
+              ng-repeat="card in wallet['Prepaid/Debit Card']"
+              ng-src="{{card.url}}"
+              style="width:2.5em"
+              alt="{{wallet['Debit/Prepaid card type'].join(', ')}}"
+
+              popover-trigger="none"
+              popover-is-open="wallet.popoverOpened1"
+              popover-title="Card Info"
+              popover-placement="left"
+              uib-popover-template="'myPopoverTemplate.html'"
+            >
+            </span>
+            <script type="text/ng-template" id="myPopoverTemplate.html"><div
+              class="my-popover" ng-if="wallet['Prepaid/Debit Card'].length > 0">
+              <div class="title-and-value">
+                <div class="title">Type</div>
+                <div class="values">
+                  <span ng-repeat="cardType in wallet['Debit/Prepaid card type']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{cardType}}</span>
+                </div>
+              </div>
+              <div class="title-and-value">
+                <div class="title">Countries available</div>
+                <div class="values">
+                  <span ng-repeat="country in wallet['Card countries available (residents)']" class="badge badge-info" style="background-color: transparent; color: #000; border: 1px solid #ccc">{{country}}</span>
+                </div>
+              </div>
+              <div class="title-and-value">
+                <div class="title">Currencies available</div>
+                <div class="values">
+                  <span ng-repeat="currency in wallet['Card currencies available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{currency}}</span>
+                </div>
+              </div>
+
+              <div class="fees">
+                <div>
+                  <div class="title">Issuance fee</div>
+                  <div class="value">{{wallet['Debit card issuance fee']}}</div>
+                </div>
+                <div>
+                  <div class="title">Annual fee</div>
+                  <div class="value">{{wallet['Debit card annual fee']}}</div>
+                </div>
+                <div>
+                  <div class="title">Purchase fee</div>
+                  <div class="value">{{wallet['Debit card purchase fee']}}</div>
+                </div>
+              </div>
+              <div class="fees sa">
+                <div>
+                  <div class="title">Withdrawal fee</div>
+                  <div class="value">{{wallet['Debit card ATM withdrawal fee']}}</div>
+                </div>
+                <div>
+                  <div class="title">Crossborder fee</div>
+                  <div class="value">{{wallet['Debit card crossborder transaction fee']}}</div>
+                </div>
+              </div>
+              </div></script>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <aside class="flyout" ng-class="{active: selectedWallet}">
+      <div class="dismiss in" ng-click="toggleFlyout()" title="close">✖</div>
+      <div class="dismiss out" ng-click="toggleFlyout()"></div>
+
+      <div class="cover">
+        <div class="logo"><img ng-src="{{selectedWallet.Logo[0].thumbnails.large.url}}" alt="Company logo"></div>
+        <div class="sign-up" ng-if="selectedWallet['Business Account'] || selectedWallet['Personal Account']" style="flex-wrap: wrap">
+          <a href="https://token.selfkey.org" target="_blank" class="btn btn-primary" ng-if="selectedWallet['Personal Account']">Sign up Personal Account</a>
+          <a href="https://token.selfkey.org" target="_blank" class="btn btn-primary" ng-if="selectedWallet['Business Account']">Sign up Business Account</a>
+          <span style="font-size: .7em; padding: 1em">This service will be available on Q1 2018. You will require KEY to apply for it, you can get your KEY from ((token sale date start)) to ((token sale ends)) at token.selfkey.org</span>
+        </div>
+        <nav class="tabs" id="navbar-example">
+          <ul class="nav nav-tabs justify-content-center" role="tablist">
+            <li class="active">
+              <a prevent-default="" scroll-to="description" href="#description">Description</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="countries" href="#countries">Countries</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="currencies" href="#currencies">Currencies</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="features" href="#features">Features</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="limits" href="#limits">Limits & Fees</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="devices" href="#devices">Devices</a>
+            </li>
+            <li>
+              <a prevent-default="" scroll-to="section1" href="#kyc">KYC</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div data-spy="scroll" data-target="#navbar-example" data-offset="0" class="body">
+        <div class="nav-link active" id="description">
+          <p ng-bind-html="selectedWallet['Flyout description'] | unsafe"></p>
+          <p>
+            <i class="fa fa-building" aria-hidden="true"></i><strong>{{selectedWallet.Company}}</strong> is a company incorporated in {{selectedWallet['Country incorporated'].join(', ')}} since {{selectedWallet['Year of Launch']}}
+          </p>
+          <div class="flex-sa">
+            <div ng-if="selectedWallet['Regulatory Agencies']">
+              <div>Regulated by</div>
+              <div><span class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{selectedWallet['Regulatory Agencies'].join(', ')}}</span></div>
+            </div>
+            <div ng-if="selectedWallet['Licenses']">
+              <div>Licensed as</div>
+              <div><span class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{selectedWallet['Licenses'].join(', ')}}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-link" id="countries">
+          <h2>Countries covered</h2>
+          <div>
+            {{selectedWallet.Wallet}} is available for citizens/residents of:
+            <div>
+              <span ng-repeat="country in selectedWallet['Countries available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{country}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="nav-link" id="currencies">
+          <h2>Currencies supported</h2>
+          <div>
+            <div>
+              <span ng-repeat="currency in selectedWallet['Currencies available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{currency}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="nav-link" id="features">
+          <h2>Features</h2>
+          <div class="cache-and-cards">
+            <div>
+              <p>
+                Store cash <span style="margin-left: 3em" class="badge badge-info badge-boolean">{{selectedWallet['Store cash'] ? 'Yes' : 'No'}}</span>
+              </p>
+              Wallet Payment Mechanism
+              <p>
+                <span ng-repeat="payment in selectedWallet['Payment Mechanism']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{payment}}</span>
+              </p>
+              <br>
+              Withdraw funds to bank account
+              <span class="badge badge-info badge-boolean">{{selectedWallet['Withdraw funds (bank transfer) permitted'] ? 'Available' : 'Not Available'}}</span>
+              <br>
+              <br>
+              Transfer money overseas
+              <p>
+                <span ng-repeat="transfer in selectedWallet['Money Transfer Overseas (Bankaccount)']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{transfer}}</span>
+              </p>
+            </div>
+            <div>
+              Store cards <span style="margin-left: 3em" class="badge badge-info badge-boolean">{{selectedWallet['Store cards'] ? 'Yes' : 'No'}}</span>
+              <br>
+              <br>
+              Add funds
+              <p>
+                <span ng-repeat="fund in selectedWallet['Add funds']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{fund}}</span>
+              </p>
+            </div>
+          </div>
+          <span>*Availability may vary by country</span>
+          <br>
+          <br>
+          <div>
+            <p><h4 style="text-align: center">Good for</h4></p>
+            <div>
+              <span ng-repeat="use in selectedWallet['Uses']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{use}}</span>
+            </div>
+            <div ng-if="selectedWallet['Get a Debit/Pre-paid card']" style="text-align: center">
+              <br>
+              <br>
+              <img ng-src="{{selectedWallet['Prepaid/Debit Card'][0].url}}" alt="Card image" style="max-width: 20%">
+              <br>
+              <br>
+              <p>Debit/pre-paid {{selectedWallet['Debit/Prepaid card type'].join(', ')}} available in:</p>
+              <p>
+                <span ng-repeat="country in selectedWallet['Card countries available (residents)']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{country}}</span>
+              </p>
+              <br>
+              Currencies available
+              <div>
+                <span ng-repeat="currency in selectedWallet['Card currencies available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{currency}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-link" id="limits">
+          <h2>Limits</h2>
+          <div class="wrapper">
+            <table style="text-align: right">
+              <tbody>
+              <tr>
+                <td>Maximum stored balance</td>
+                <td>
+                  <div class="badge badge-info badge-boolean-large"
+                       ng-bind-html="selectedWallet['Maximum stored balance' || '-'] | unsafe"
+                       popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Maximum stored balance'] || '-' | longHtml"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Daily transaction limit</td>
+                <td><span class="badge badge-info badge-boolean-large" ng-bind-html="selectedWallet['Daily Transaction Limit'] || '-' | unsafe" popover-placement="{{'top'}}"
+                          uib-popover-html="selectedWallet['Daily Transaction Limit'] || '-' | longHtml"></span></td>
+              </tr>
+              <tr>
+                <td>Annual transaction limit</td>
+                <td><span class="badge badge-info badge-boolean-large" ng-bind-html="selectedWallet['Annual transaction limit'] || '-' | unsafe"
+                          popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Annual transaction limit'] || '-' | longHtml"
+                ></span></td>
+              </tr>
+              <tr>
+                <td>ATM `withdrawal daily limit</td>
+                <td><span class="badge badge-info badge-boolean-large" ng-bind-html="selectedWallet['Debit card ATM withdrawal daily limit'] || '-' | unsafe"
+                          popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card ATM withdrawal daily limit'] || '-' | longHtml"></span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <span>*Limits may vary by country/currency/account verification level</span>
+        </div>
+        <div class="nav-link" id="fees">
+          <h2>Fees</h2>
+          <div class="flex-sa">
+            <div>
+              <div>Sign Up</div>
+              <span
+                class="badge badge-info badge-boolean-large"
+                ng-bind-html="selectedWallet['Signup fee'] || '-' | unsafe"
+                popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Signup fee'] || '-' | longHtml"></span>
+            </div>
+            <div>
+              <div>Annual fee</div>
+              <span
+                class="badge badge-info badge-boolean-large"
+                ng-bind-html="selectedWallet['Annual'] || '-' | unsafe"
+                popover-placement="{{'top'}}"
+                uib-popover-html="selectedWallet['Annual'] || '-' | longHtml"
+              ></span>
+            </div>
+            <div>
+              <div>Payment Fee</div>
+              <span
+                class="badge badge-info badge-boolean-large"
+                ng-bind-html="selectedWallet['Payment fee'] || '-' | unsafe"
+                popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Payment fee'] || '-' | longHtml"></span>
+            </div>
+          </div>
+          <div class="flex-sa">
+            <table>
+              <thead>
+              <tr>
+                <td class="title" colspan="2">Add funds</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Bank transfer</td>
+                <td><span class="badge badge-info badge-boolean-large"
+                          ng-bind-html="selectedWallet['Add funds (Bank transfer) fee'] || '-' | unsafe"
+                          popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Add funds (Bank transfer) fee'] || '-' | longHtml"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>Credit card</td>
+                <td><span class="badge badge-info badge-boolean-large"
+                          ng-bind-html="selectedWallet['Add funds (Credit card) fee'] || '-' | unsafe"
+                          popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Add funds (Credit card) fee'] || '-' | longHtml"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>Debit card</td>
+                <td><span class="badge badge-info badge-boolean-large"
+                          ng-bind-html="selectedWallet['Add funds (Debit card) fee'] || '-' | unsafe"
+                          popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Add funds (Debit card) fee'] || '-' | longHtml"></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <table>
+              <thead>
+              <tr>
+                <td class="title" colspan="2">Withdraw funds</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Local bank transfer</td>
+                <td><span
+                  class="badge badge-info badge-boolean-large"
+                  ng-bind-html="selectedWallet['balance'] || '-' | unsafe"
+                  popover-placement="{{'top'}}" uib-popover-html="selectedWallet['balance'] || '-' | longHtml"></span>
+                </td><!--fixme-->
+              </tr>
+              <tr>
+                <td>Overseas transfer</td>
+                <td><span
+                  class="badge badge-info badge-boolean-large"
+                  ng-bind-html="selectedWallet['Transfer overseas fee'] || '-' | unsafe"
+                  popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Transfer overseas fee'] || '-' | longHtml"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>Currency exchange</td>
+                <td><span
+                  class="badge badge-info badge-boolean-large"
+                  ng-bind-html="selectedWallet['Currency exchange fee'] || '-' | unsafe"
+                  popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Currency exchange fee'] || '-' | longHtml"></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div ng-if="selectedWallet['Get a Debit/Pre-paid card']">
+            <br>
+            <br>
+            <img ng-src="{{selectedWallet['Prepaid/Debit Card'][0].url}}" alt="Debit/Pre-paid card fees" style="max-width: 5em"> Debit/Pre-paid card fees
+            <div class="flex-sa">
+              <table>
+                <tbody>
+                <tr>
+                  <td>Issuance fee</td>
+                  <td><span
+                    class="badge badge-info badge-boolean-large"
+                    ng-bind-html="selectedWallet['Debit card issuance fee'] || '-' | unsafe"
+                    popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card issuance fee'] || '-' | longHtml"
+                  ></span></td>
+                </tr>
+                <tr>
+                  <td>Annual fee</td>
+                  <td><span
+                    class="badge badge-info badge-boolean-large"
+                    ng-bind-html="selectedWallet['Debit card annual fee'] || '-' | unsafe"
+                    popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card annual fee'] || '-' | longHtml"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Purchase fee</td>
+                  <td><span
+                    class="badge badge-info badge-boolean-large"
+                    ng-bind-html="selectedWallet['Debit card purchase fee'] || '-' | unsafe"
+                    popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card purchase fee'] || '-' | longHtml"></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <table>
+                <tbody>
+                <tr>
+                  <td>ATM withdrawal fee</td>
+                  <td><span
+                    class="badge badge-info badge-boolean-large"
+                    ng-bind-html="selectedWallet['Debit card ATM withdrawal fee' || '-'] | unsafe"
+                    popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card ATM withdrawal fee' || '-'] | longHtml"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Crossborder fee</td>
+                  <td><span
+                    class="badge badge-info badge-boolean-large"
+                    ng-bind-html="selectedWallet['Debit card crossborder transaction fee'] || '-' | unsafe"
+                    popover-placement="{{'top'}}" uib-popover-html="selectedWallet['Debit card crossborder transaction fee'] || '-' | longHtml"></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <span>*Fees may vary by country</span>
+          </div>
+        </div>
+        <div class="nav-link" id="devices">
+          <h2>Devices</h2>
+          <div class="flex-sa device-and-os">
+            <div class="os">
+              <i ng-repeat="os in selectedWallet['OS availability']" class="fa fa-{{iconClassMap[os]}}" aria-hidden="true"></i>
+            </div>
+            <div class="device">
+              <i ng-repeat="os in selectedWallet['Device availability']" class="fa fa-{{iconClassMap[os]}}" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="nav-link" id="kyc">
+          <h2>KYC Required</h2>
+          <div>
+            For Personal account
+            <div>
+              <span ng-repeat="requirement in selectedWallet['KYC individuals']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{requirement}}</span>
+            </div>
+            <div ng-if="selectedWallet['Business Account']">
+              <br>
+              For Business account
+              <div>
+                <span ng-repeat="requirement in selectedWallet['KYC businesses']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{requirement}}</span>
+              </div>
+            </div>
+            <br>
+            <br>
+            <span>*Documents required may vary by country, services and transaction limits requested</span>
+            <span ng-if="selectedWallet['Restricted Nationalities'] && selectedWallet['Restricted Nationalities'].length > 0">**Citizens/Residents of {{selectedWallet['Restricted Nationalities'].join(', ')}} are not allowed to apply for this service</span>
+            <br>
+            <br>
+            <div class="flex-sa">
+              <button disabled="disabled" type="button" class="btn btn-primary" ng-if="selectedWallet['Personal Account']">Sign up Personal Account</button>
+              <button disabled="disabled" type="button" class="btn btn-primary" ng-if="selectedWallet['Business Account']">Sign up Business Account</button>
+              <span style="font-size: .7em; margin-top: 1em">This service will be available on Q1 2018. You will require KEY to apply for it, you can get your KEY from ((token sale date start)) to ((token sale ends)) at token.selfkey.org</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer id="App-Footer">
+    <div class="col-md-6">Copyright 2017</div>
+    <div class="col-md-6 text-right">
+      <a target="_blank" href="https://ideas.incorporations.io">Feedback & Feature Requests</a>
+    </div>
+  </footer>
+</div>
+
+<script src="js/application.js?wallets"></script>
+
+<script>
+  document.body.onload = function () {
+    var fonts = ['Source+Sans+Pro:200,400,700'];
+    var url = 'https://fonts.googleapis.com/css?family=';
+    fonts.forEach(function (font) {
+      // To load multiple fonts in one call we just separete the fonts with the | character
+      url += font + "|";
+    });
+    url = url.replace(/\|$/, '');
+    loadFont(url);
+  }
+
+  function loadFont(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var style = document.createElement('style');
+        style.innerHTML = xhr.responseText;
+        document.head.appendChild(style);
+      }
+    };
+    xhr.send();
+  }
+</script>
+
+</body>
+</html>

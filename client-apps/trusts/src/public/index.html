@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="marketplaceApp">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="favicon.ico">
+  <script data-require="jquery@*" data-semver="1.9.1" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/flag-icon.css">
+  <link rel="stylesheet" href="css/application.css?trusts">
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="js/directives/directives.js"></script>
+  <script src="js/directives/toggle-element.js"></script>
+  <script data-require="ui-bootstrap@*" data-semver="0.5.0"
+          src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
+  <script data-require="bootstrap@2.3.2" data-semver="2.3.2"
+          src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="js/scrollspyjs/bootstrap.min.js"></script>
+</head>
+<body>
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+<div class="main-content" ng-controller="ListController">
+  <div id="overlay" ng-click="closeNav()"></div>
+  <div id="root" class="container-fluid  p-0">
+    <header class="" style="background: #2d3642">
+      <nav class="navbar  navbar-toggleable-md navbar-light">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="//en">
+          <img src="images/selfkey.png">
+        </a>
+
+        <ul class="nav mx-auto header-buttons collapse navbar-collapse" style="">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              Public Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/marketplace">
+              <i class="material-icons">card_travel</i>
+              Marketplace
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">perm_contact_calendar</i>
+              Identity
+            </a>
+          </li>
+        </ul>
+
+        <div class="collapse navbar-collapse float-right justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-en"></span> <span
+                class="visible-sm-down">en</span></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/marketplace/passports/en"><span class="flag-icon flag-icon-us"></span>
+                  EN</a>
+                <a class="dropdown-item" href="/marketplace/passports/es"><span class="flag-icon flag-icon-es"></span>
+                  ES</a>
+                <a class="dropdown-item" href="/marketplace/passports/cn"><span class="flag-icon flag-icon-cn"></span>
+                  CN</a>
+                <a class="dropdown-item" href="/marketplace/passports/vn"><span class="flag-icon flag-icon-vn"></span>
+                  VN</a>
+                <a class="dropdown-item" href="/marketplace/passports/ru"><span class="flag-icon flag-icon-ru"></span>
+                  RU</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="header_authentication">
+                <img src="images/login.png" alt="">
+              </div>
+            </li>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="header-site-title"
+         style="    background: linear-gradient(rgb(206, 234, 242) 1%, rgb(206, 234, 242) 72%, rgb(255, 255, 255) 100%);">
+      <div class="category-item text-center">
+        <div class="shape">
+          <a href="" class="category-link">
+            <img src="images/trusts_logo.png" alt="">
+          </a>
+        </div>
+        <h1 class="bold_text">TRUSTS</h1>
+      </div>
+    </div>
+
+    <div class="filters-container">
+      <div class="filters">
+        <div class="filter">
+          <label><input type="checkbox" ng-model="SettlorPr" ng-change="filterData([3,13])"> Protection of
+            Settlor</label>
+          <div class="filter-buttons">
+            <button type="button" click-active class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': SettlorPr}" ng-click="filterData([3])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Settlor as beneficiary
+            </button>
+
+            <button type="button" class="btn btn-primary btn-lg outline"
+                    ng-click="filterData([13])"
+                    ng-class="currentControl ? 'state-on' : currentControl ===false ? 'state-off' : 'state-default'">
+              <i
+                ng-class="currentControl ? 'fa fa-check' : currentControl ===false ? 'fa fa-gavel' : ''"></i>
+              Settlor Control
+              <span class="state-text"
+                    ng-if="currentControl ? textC = '- Yes' : currentControl ===false ? textC = '- Subject to CL rules' : textC = ' '">
+                  {{textC}}
+                </span>
+            </button>
+            <button type="button" click-active class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': SettlorPr}" ng-click="filterData([14])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Bankruptcy Protection
+            </button>
+          </div>
+        </div>
+        <div class="filter">
+          <label><input type="checkbox" ng-model="BeneficiaryPr" ng-change="filterData([1,2])"> Protection of
+            Beneficiary</label>
+          <div class="filter-buttons">
+            <button type="button" click-active class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': BeneficiaryPr}" ng-click="filterData([1])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Avoidance of forced heirship
+            </button>
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': BeneficiaryPr}" ng-click="filterData([2])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Spendthrift Provisions
+            </button>
+          </div>
+        </div>
+
+        <div class="filter">
+          <label><input type="checkbox" ng-model="JudgementsPr" ng-change="filterData([4,15])"> Protection of Foreign
+            Judgements</label>
+          <div class="filter-buttons">
+
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': JudgementsPr}" ng-click="filterData([15])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Ignore Foreign Judgement
+            </button>
+
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': JudgementsPr}" ng-click="filterData([4])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Hague Convention
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="filters">
+        <div class="filter">
+          <label><input type="checkbox" ng-model="CreditorsPr" ng-change="filterData([5,6,7,8])"> Transfers</label>
+          <div class="filter-buttons">
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': CreditorsPr}"
+                    ng-click="filterData([5])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Exclusive of statue of Elizabeth laws
+            </button>
+
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': CreditorsPr}"
+                    ng-click="filterData([6])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Fraudulent Transfer Clearly Defined
+            </button>
+            <div>
+              <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                      ng-class="{'state-on': CreditorsPr}"
+                      ng-click="filterData([7])">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Trust invalid if transfer fraudulent
+              </button>
+              <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                      ng-class="{'state-on': CreditorsPr}"
+                      ng-click="filterData([8])">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Separation of creditor claims
+              </button>
+            </div>
+
+          </div>
+        </div>
+        <div class="filter">
+          <label><input type="checkbox" ng-model="otherPr" ng-change="filterData([9,10,11,12])"> Other
+            Protections</label>
+          <div class="filter-buttons">
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': otherPr}"
+                    ng-click="filterData([9])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Retroactive Protection
+            </button>
+            <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                    ng-class="{'state-on': otherPr}"
+                    ng-click="filterData([10])">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Community property provisions
+            </button>
+            <div>
+              <button type="button" click-active="" class="btn btn-primary btn-lg outline"
+                      ng-class="{'state-on': otherPr}"
+                      ng-click="filterData([11])">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Choice of law binding
+              </button>
+              <button type="button" class="btn btn-primary btn-lg outline"
+                      ng-click="filterData([12])"
+                      ng-class="currentState ? 'state-on' : currentState ===false ? 'state-off' : currentState === null ? 'state-limited' : 'state-default'">
+                <i
+                  ng-class="currentState ? 'fa fa-check' : currentState ===false ? 'fa fa-minus-circle' : currentState === null ? 'fa fa-exclamation-triangle' : ''"></i>
+                Exclusion of Foreign Law
+                <span class="state-text"
+                      ng-if="currentState ? text = '- Yes' : currentState ===false ? text = '- No' : currentState === null ? text = '- Limited' : text = ' '">
+                  {{text}}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="App-ListView">
+      <div ng-if="!list">
+        Loading results...
+      </div>
+      <span>{{a}}</span>
+      <div ng-if="list.length > 0">
+        <table class="table table-stripped">
+          <thead>
+          <tr>
+            <th>Country</th>
+            <th>Name of Trust</th>
+            <th>Good for</th>
+            <th>Ease to set up a <br>bank account</th>
+            <th>Ignore foreign judgements</th>
+            <th>Creditor Must Prove <br>Fraudulent Transfer?</th>
+            <th>Statutory limitation on fraudulent transfer <br>(years)</th>
+            <th>Specific exclusion <br>of foreign law</th>
+
+            <!--<th>Custodian Trustee <br>permitted</th>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="trust in list | filter : filterObj" ng-click="openNav(trust)">
+            <td>
+              <i class="flag-icon flag-icon-{{trust['Country code'] | lowercase}}"></i>
+              {{trust.Region}}
+            </td>
+            <td>
+              <span>
+                {{trust['Legal entity']}}
+              </span>
+            </td>
+
+            <td class="hidden-sm-down visible-on-hover">
+              <a ng-repeat="good in trust['Good for']"
+                 style="background-color: transparent; color: #000; border: 1px solid #ccc"
+                 ng-class="['badge-filter', 'badge', 'badge-default', {'visible-on-hover':$index > 2}]">
+                {{good}}
+              </a>
+            </td>
+
+            <td>
+              <a class="tern-badge" ng-repeat="easy in trust['Ease to setup bank account']"
+                 ng-class="easy === 'Easy' ? 'yes' :easy === 'Difficult' ? 'no'  : 'medium'">
+                {{easy}}
+              </a>
+            </td>
+            <td>
+              <a class="tern-badge"
+                 ng-class="(trust['Ignore foreign judgements'] ? 'yes' : 'no')">
+                {{trust['Ignore foreign judgements'] === true ? "Yes" : "No"}}
+              </a>
+            </td>
+            <td>
+              <a class="tern-badge"
+                 ng-class="(trust['Creditor must prove fraudulent transfer'] ? 'yes' : 'no')">
+                {{trust['Creditor must prove fraudulent transfer'] === true ? "Yes" : "No"}}
+              </a>
+            </td>
+            <td>
+              <a class="tern-badge"
+                 ng-class="(trust['Statutory limitation on fraudulent transfer (years)'] ? 'yes' : 'no')">
+                {{trust['Statutory limitation on fraudulent transfer (years)'] ?
+                trust['Statutory limitation on fraudulent transfer (years)'] + " Years" : 'No'}}
+              </a>
+            </td>
+            <td>
+              <a class="tern-badge" ng-repeat="exclusive in trust['Specific exclusion of foreign law']"
+                 ng-class="exclusive === 'Yes' ? 'yes' :exclusive === 'No' ? 'no'  : 'limited'">
+                {{exclusive}}
+              </a>
+            </td>
+
+            <!--<td>{{trust['Custodian trustee permitted'] === true ? "Yes" : "No"}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <footer class="row" id="App-Footer">
+      <div class="col-md-6">Copyright 2017</div>
+      <div class="col-md-6 text-right">
+        <a target="_blank" href="https://ideas.incorporations.io">Feedback & Feature Requests</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="" class="closebtn" ng-click="closeNav()">&times;</a>
+    <div class="sidenav-content">
+      <div class="header">
+        <div class="title">
+          <i class="flag-icon flag-icon-{{rowData['Country code'] | lowercase}}"></i>
+          {{rowData.Region}}
+        </div>
+        <div class="trust">{{rowData['Legal entity']}}</div>
+        <a href="https://token.selfkey.org" class="btn btn-primary">Incorporate Now</a>
+      </div>
+      <div class="navbar">
+        <ul id="navPills" class="nav nav-pills nav-stacked">
+          <li class="active">
+            <a href="#section1" prevent-default="" scroll-to="section1">Introduction</a>
+          </li>
+          <li class="">
+            <a href="#section2" prevent-default="" scroll-to="section2">Legal</a>
+          </li>
+          <li class="">
+            <a href="#section3" prevent-default="" scroll-to="section3">Taxes</a>
+          </li>
+          <li class="">
+            <a href="#section4" prevent-default="" scroll-to="section4">Country details
+            </a>
+          </li>
+          <!--   <li class="">
+               <a href="#section5" prevent-default="" scroll-to="section5">Tax Treaties
+               </a>
+             </li>-->
+          <li class="">
+            <a href="#section5" prevent-default="" scroll-to="section5">KYC
+            </a>
+          </li>
+        </ul>
+        <div id="scroller" scroll-spy="" data-target="#navPills" data-scroll-offset="0" class="scrollspy-example span9">
+          <div id="section1" class="section-title"><h3 ng-if="rowData['introduction']">Introduction</h3>
+            <div class="legal-title">
+              <span ng-bind-html="rowData['introduction']"></span>
+            </div>
+          </div>
+          <div id="section2" class="section-title"><h3>Legal</h3>
+            <div class="legal-title">
+              <span ng-bind-html="rowData['legal_paragraph']"></span>
+            </div>
+            <div class="law-checks">
+              <div class="law-check">
+                <div class="title">Protection of Settlor</div>
+                <label class="info-parent">
+                  <input type="checkbox" ng-checked="rowData['Settlor-beneficiary']" onclick="return false;">
+                  Settlor as beneficiary
+                  <i class="info-child">
+                    Can the settlor (the grantor) also receive assets from the trust?
+                  </i>
+                </label>
+                <label class="info-parent">
+                  <input type="checkbox" ng-checked="rowData['Bankruptcy protection']" onclick="return false;">
+                  Bankruptcy protection
+                  <i class="info-child">{{rowData['Bankruptcy protection descr']}}</i>
+                </label>
+              </div>
+              <div class="law-check">
+                <div class="title">Protection of Beneficiary</div>
+                <label class="info-parent">
+                  <input type="checkbox" ng-checked="rowData['Avoidance of forced heirship']" onclick="return false;">
+                  Avoidance of forced heirship
+                  <i class="info-child">{{rowData['Avoidance of forced heirship descr']}}</i>
+                </label>
+                <label class="info-parent">
+                  <input type="checkbox" ng-checked="rowData['Spendhrift Provisions']" onclick="return false;">
+                  Spendhrift Provisions
+                  <i class="info-child">{{rowData['Spendthrift provisions descr']}}</i>
+                </label>
+              </div>
+            </div>
+            <div class="law-checks">
+              <div class="law-check">
+                <div class="title">Protection from foreign judgements</div>
+                <label class="info-parent">
+                  <input type="checkbox" ng-checked="rowData['Ignore foreign judgements']" onclick="return false;">
+                  Ignore foreign judgement
+                  <i class="info-child">{{rowData['Ignore foreign judgements descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Hague convention applicable']"
+                                                  onclick="return false;">
+                  Hague convention applicable
+                  <i class="info-child">{{rowData['Hague convention on trusts descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Choice of law is binding']"
+                                                  onclick="return false;">
+                  Binding choice of law
+                  <i class="info-child">{{rowData['Choice of law is binding descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Protection from immigrant trusts']"
+                                                  onclick="return false;">
+                  Protection for immigrant trusts
+                  <i class="info-child">{{rowData['Protection from immigrant trusts descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="['Community property provisions']"
+                                                  onclick="return false;">
+                  Community property provisions
+                  <i class="info-child">{{rowData['Community property provisions descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Custodian trustee permitted']"
+                                                  onclick="return false;">
+                  Custodian trustee permitted
+                  <i class="info-child">{{rowData['Custodian trustee permitted descr']}}</i>
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Rule against perpetuities (years)']"
+                                                  onclick="return false;">
+                  Rule against perpetuities(years)
+                  <i class="info-child">{{rowData['Rule against perpetuities (years) descr']}}</i>
+                </label>
+              </div>
+              <div class="law-check">
+                <div class="title">Transfers</div>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Exclusion of Statute of Elizabeth laws']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Exclusion of Statute of Elizabeth laws descr']}}</i>
+                  Exclusive of statue of Elizabeth laws
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Trust is invalid if transfer fraudulent']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Trust is invalid if transfer fraudulent descr']}}</i>
+                  Trust invalid if transfer fraudulent
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Creditor must prove fraudulent transfer']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Creditor must prove fraudulent transfer descr']}}</i>
+                  Creditor must prove fraudulent transfer</label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Clear definition of fraudulent transfers']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Clear definition of fraudulent transfers descr']}}</i>
+                  Clear definition of fraudulent transfer
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Separation of creditor claims']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Separation of creditor claims descr']}}</i>
+                  Separation of creditor claims
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Statutory limitation on fraudulent transfer']"
+                                                  onclick="return false;">
+                  <i class="info-child">{{rowData['Statutory limitation on fraudulent transfer descr']}}</i>
+                  Statutory limitation of fraudulent transfer
+                </label>
+              </div>
+            </div>
+            <div class="law-checks">
+              <div class="law-check">
+                <div class="tax-rate">
+                  <div class="title info-parent">
+                    <i class="info-child">{{rowData['Specific exclusion of foreign law descr']}}</i>
+                    <span ng-repeat="exclusive in rowData['Specific exclusion of foreign law']"
+                          ng-class="exclusive === 'Yes' ? 'yes' :exclusive === 'No' ? 'no'  : 'limited'">
+                {{exclusive}}
+                    </span>
+                    Specific exclusion of foreign law
+                  </div>
+
+                  <div class="title info-parent">
+                    <i class="info-child">{{rowData['Settlor can retain control descr']}}</i>
+                    <span ng-repeat="control in rowData['Settlor can retain control']"
+                          ng-class="control === 'Yes' ? 'yes' :control === 'No' ? 'no'  : 'Subject to CL rules'">
+                {{control}}
+                    </span>
+                    Settlor control
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Registration fee']">
+                    <i class="info-child">{{rowData['Registration fee descr']}}</i>
+                    <span>
+                      {{rowData['Registration fee']}}
+                    </span>
+                    Registration fee
+                  </div>
+                  <div class="title info-parent" ng-if="rowData['Annual government fee']">
+                    <i class="info-child">
+                      {{rowData['Annual government fee descr']}}
+                    </i>
+                    <span>
+                      {{rowData['Annual government fee']}}
+                    </span>
+                    Annual government fee
+                  </div>
+                  <div class="title info-parent" ng-if="rowData['Time to form (days)']">
+                    <i class="info-child">
+                      {{rowData['Time to form (days) descr']}}
+                    </i>
+                    <span>
+                      {{rowData['Time to form (days)']}}
+                    </span>
+                    to form
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="section3" class="section-title"><h3>Taxes</h3>
+            <span ng-bind-html="rowData['taxes_paragraph']"></span>
+            <div class="law-checks">
+              <div class="law-check">
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Offshore dividends tax exemption']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Offshore dividends tax exemption descr']}}
+                  </i>
+                  Offshore dividends tax exemption
+                </label>
+                <label class="info-parent"><input type="checkbox"
+                                                  ng-checked="rowData['Offshore capital gains tax exemption']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Offshore capital gains tax exemption descr']}}
+                  </i>
+                  Offshore capital gains tax exemption
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['CFC Rules']"
+                                                  onclick="return false;">
+                  <i class="info-child" style="width: 400px;">
+                    {{rowData['CFC Rules descr']}}
+                  </i>
+                  CFC Rules
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Thin Capitalisation Rules']"
+                                                  onclick="return false;">
+                  <i class="info-child" style="width: 400px;">
+                    {{rowData['Thin Capitalisation Rules descr']}}
+                  </i>
+                  Thin capitalisation rules
+                </label>
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Patent box']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Patent Box descr']}}
+                  </i>
+                  Patent box
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Tax Incentives & Credits']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Tax Incentives & Credits descr']}}
+                  </i>
+                  Tax credits & incentives
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Property Tax']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Property Tax descr']}}
+                  </i>
+                  Property tax
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Wealth tax']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Wealth tax descr']}}
+                  </i>
+                  Wealth tax
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Estate inheritance tax']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Estate inheritance tax descr']}}
+                  </i>
+                  Inheritance tax
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Transfer tax']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Transfer tax descr']}}
+                  </i>
+                  Transfer tax
+                </label>
+
+                <label class="info-parent"><input type="checkbox" ng-checked="rowData['Capital duties']"
+                                                  onclick="return false;">
+                  <i class="info-child">
+                    {{rowData['Capital duties descr']}}
+                  </i>
+                  Capital duties
+                </label>
+              </div>
+
+              <div class="law-check">
+                <div class="tax-rate">
+                  <div class="title info-parent" ng-if="rowData['Personal Income Tax Rate']">
+                    <i class="info-child">
+                      {{rowData['Personal Income Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Personal Income Tax Rate']}}</span>
+                    Personal Income Tax Rate
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['VAT Rate']">
+                    <i class="info-child">
+                      {{rowData['VAT Rate descr']}}
+                    </i>
+                    <span>{{rowData['VAT Rate'] + '%'}}</span>
+                    VAT Rate
+                  </div>
+
+                  <div class="title info-parent">
+                    <i class="info-child">
+                      {{rowData['Offshore Income Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Offshore Income Tax Rate'] === undefined ? "0" : rowData['Offshore Income Tax Rate'] === "-" ? "-" : rowData['Offshore Income Tax Rate']}}</span>
+                    Offshore Income Tax Rate
+                  </div>
+
+                  <div class="title info-parent">
+                    <i class="info-child">
+                      {{rowData['Corporate Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Corporate Tax Rate'] === undefined ? "0" : rowData['Corporate Tax Rate'] === "-" ? "-" : rowData['Corporate Tax Rate']}}</span>
+                    Corporate income Tax Rate
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Dividends Received']">
+                    <i class="info-child">
+                      Tax rate to which dividends received by a resident entity are subject to
+                    </i>
+                    <span>{{rowData['Dividends Received']}}</span>
+                    Dividends Received
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Capital Gains Tax Rate']">
+                    <i class="info-child">
+                      {{rowData['Capital Gains Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Capital Gains Tax Rate']}}</span>
+                    Capital Gains Tax Rate
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Social Security Employer']">
+                    <i class="info-child">
+                      {{rowData['Social Security Employer descr']}}
+                    </i>
+                    <span>{{rowData['Social Security Employer']}}</span>
+                    Social Security Employer
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Social Security Employee']">
+                    <i class="info-child">
+                      {{rowData['Social Security Employee descr']}}
+                    </i>
+                    <span>{{rowData['Social Security Employee']}}</span>
+                    Social Security Employee
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Dividends Withholding Tax Rate']">
+                    <i class="info-child">
+                      {{rowData['Dividends Withholding Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Dividends Withholding Tax Rate']}}</span>
+                    Dividends Withholding Tax Rate
+                  </div>
+
+
+                  <div class="title info-parent" ng-if="rowData['Dividends Withholding Tax Rate']">
+                    <i class="info-child">
+                      {{rowData['Interests Withholding Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Dividends Withholding Tax Rate']}}</span>
+                    Interests Withholding Tax Rate
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Royalties Withholding Tax Rate']">
+                    <i class="info-child">
+                      {{rowData['Royalties Withholding Tax Rate descr']}}
+                    </i>
+                    <span>{{rowData['Royalties Withholding Tax Rate']}}</span>
+                    Royalties Withholding Tax Rate
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Losses carryback (years)']">
+                    <i class="info-child">
+                      {{rowData['Losses carryback (years) descr']}}
+                    </i>
+                    <span>{{rowData['Losses carryback (years)']}}</span>
+                    Losses carryback (years)
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Losses carryforward (years)']">
+                    <i class="info-child">
+                      {{rowData['Losses carryforward (years) descr']}}
+                    </i>
+                    <span>{{rowData['Losses carryforward (years)']}}</span>
+                    Losses carryforward (years)
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Inventory methods permitted']">
+                    <i class="info-child" style="margin-left: -200px;">
+                      {{rowData['Inventory methods permitted descr']}}
+                    </i>
+                    <span ng-repeat="inv in rowData['Inventory methods permitted']">
+                        <span>
+                          {{inv}}
+                        </span>
+                    </span>
+                    Inventory methods permitted
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Tax time (hours)']">
+                    <i class="info-child">
+                      {{rowData['Tax time (hours) descr']}}
+                    </i>
+                    <span>{{rowData['Tax time (hours)']}}</span>
+                    Tax time(hours)
+                  </div>
+
+                  <div class="title info-parent" ng-if="rowData['Tax treaties']">
+                    <i class="info-child">
+                      {{rowData['Tax treaties descr']}}
+                    </i>
+                    <span>{{rowData['Tax treaties']}}</span>
+                    Tax treaties
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="section4" class="section-title"><h3>Country Details</h3>
+            <div class="row country-details">
+              <div class="col-md-4">
+                <span class="flag-icon flag-icon-{{rowData['Country code'] | lowercase}}"
+                      style="font-size: 8em; display:block; 0 0 1px #ccc;"></span>
+              </div>
+              <div class="col-md-8">
+                <div>
+                  <label><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;National Flag of</label>
+                  <strong class="country">{{rowData.Region}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-usd" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Currency</label>
+                  <strong class="country">{{rowData.currencyCode}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Area Code</label>
+                  <strong class="country">{{rowData.areaCode}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-university" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Capital</label>
+                  <strong class="country">{{rowData.capital}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Continent</label>
+                  <strong class="country">{{rowData.continent}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-language" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Native Languages</label>
+                  <strong class="country" style="margin-right: 1em">{{rowData.languages}}</strong>
+                </div>
+                <div>
+                  <label><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;Population</label>
+                  <strong class="country">{{rowData.population}}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="legal-title">
+              <span ng-bind-html="rowData['country_details']"></span>
+            </div>
+          </div>
+          <!--<div id="section5" class="section-title"><h3>Tax Treaties</h3>
+            <table class="table country-visa-list table-striped table-condensed table-side" style="margin:0">
+              <thead>
+              <tr>
+                <th style="text-align: left">Country</th>
+                <th style="text-align: left">Type</th>
+                <th style="text-align: left">Date signed</th>
+                <th><i class="fa fa-file-pdf-o"></i></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="gio in list">
+                <td style="text-align: left; width: 60%"><span>
+                   <i class="flag-icon flag-icon-{{gio['Country code'] | lowercase}}"></i>
+                  <span>{{gio.Region}}</span> </span>
+                </td>
+                <td style="text-align: left">{{gio['Legal entity type'][0]}}&nbsp;</td>
+                <td style="text-align: left">2010-06-22</td>
+                <td><a href="https://www.scribd.com/doc/235809556" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>-->
+          <div id="section5" class="section-title"><h3>KYC</h3>
+            <div class="legal-title">
+              <div class="kyc" ng-repeat="kyc in rowData['KYC-docs']">
+                <div class="kyc-badge">
+                  {{kyc}}
+                  <i>&times;</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/application.js?trusts"></script>
+
+
+<script>
+  document.body.onload = function () {
+    var fonts = ['Source+Sans+Pro:200,400,700'];
+    var url = 'https://fonts.googleapis.com/css?family=';
+    fonts.forEach(function (font) {
+      // To load multiple fonts in one call we just separete the fonts with the | character
+      url += font + "|";
+    });
+    url = url.replace(/\|$/, '');
+    loadFont(url);
+  }
+
+  function loadFont(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var style = document.createElement('style');
+        style.innerHTML = xhr.responseText;
+        document.head.appendChild(style);
+      }
+    };
+    xhr.send();
+  }
+</script>
+
+</body>
+</html>

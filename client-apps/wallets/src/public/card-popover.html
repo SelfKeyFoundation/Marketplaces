@@ -1,0 +1,45 @@
+<div class="my-popover" ng-if="wallet['Prepaid/Debit Card'].length > 0">
+  <div class="title-and-value">
+    <div class="title">Type</div>
+    <div class="values">
+      <span ng-repeat="cardType in wallet['Debit/Prepaid card type']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{cardType}}</span>
+    </div>
+  </div>
+  <div class="title-and-value">
+    <div class="title">Countries available</div>
+    <div class="values">
+      <span ng-repeat="country in wallet['Countries available']" class="badge badge-info" style="background-color: transparent; color: #000; border: 1px solid #ccc">{{country}}</span>
+    </div>
+  </div>
+  <div class="title-and-value">
+    <div class="title">Currencies available</div>
+    <div class="values">
+      <span ng-repeat="currency in wallet['Currencies available']" class="badge badge-pill badge-{{rand}}" ng-init="rand = randomClass()">{{currency}}</span>
+    </div>
+  </div>
+
+  <div class="fees">
+    <div>
+      <div class="title">Issuance fee</div>
+      <div class="value">{{wallet['Debit card issuance fee']}}</div>
+    </div>
+    <div>
+      <div class="title">Annual fee</div>
+      <div class="value">{{wallet['Debit card annual fee']}}</div>
+    </div>
+    <div>
+      <div class="title">Purchase fee</div>
+      <div class="value">{{wallet['Debit card purchase fee']}}</div>
+    </div>
+  </div>
+  <div class="fees sa">
+    <div>
+      <div class="title">Withdrawal fee</div>
+      <div class="value">{{wallet['Debit card ATM withdrawal fee']}}</div>
+    </div>
+    <div>
+      <div class="title">Crossborder fee</div>
+      <div class="value">{{wallet['Debit card crossborder transaction fee']}}</div>
+    </div>
+  </div>
+</div>
