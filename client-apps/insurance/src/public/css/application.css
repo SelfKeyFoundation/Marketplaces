@@ -1,0 +1,578 @@
+/**
+ *
+ * Copyright 2016 Andre Goncalves. All rights reserved.
+ *
+*/
+
+/* ==========================================================================
+   COMMON
+   ========================================================================== */
+
+
+:root {
+  --border-color: #ccc;
+  --text-color: rgba(0,0,0,.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--text-color);
+}
+
+
+
+footer {
+  margin-top: 10vh;
+  padding-top: 2em;
+  /* border-top: 1px solid #ccc; */
+  background: #2d3642;
+  color: #fff;
+  
+}
+
+  .self-key-icon {
+    content: '&nbsp;';
+    background: url(/images/self-key-footer-logo.png) no-repeat;
+    width: 30px;
+    height: 30px;
+    display: inline;
+    margin-top: -14px; /* because the image is bigger then the fonts */
+  }
+  footer h4 {
+    font-size: 0.8rem;
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .text-fix {
+    padding-top:8px;
+  }
+
+  .center-text {
+    text-align: center;
+    display: inherit;
+  }
+
+  footer ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    
+  }
+
+    footer ul.split-3 {
+      column-count: 3;
+    }
+
+    footer ul.split-2 {
+      column-count: 2;
+    }
+
+    footer ul li {
+      /* display: inline-flex; */
+      font-size: 0.8rem;
+      line-height: 1.5rem;
+    }
+
+    .tiny-text {
+      font-size: 0.6rem;
+    }
+    .footer-top-spacing {
+      margin: 10px 0 0 0;
+    }
+
+    footer a, a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+    .footer-small-text {
+      font-size: 9px;
+      text-align: center;
+    }
+
+    .copyright {
+      font-size: 12px;
+      line-height: 2.083;
+      text-align: center;
+      padding-left: 15px;
+      color: #fff;
+    }
+    .copyright .copy-text {
+      margin-left: 30px;
+      margin-right: 100px;
+    }
+    .copyright .pipe:after {
+      content: '|';
+      position: relative;
+      left: 8px;
+    }
+    .copyright .terms {
+      margin-left: 10px;
+    }
+
+    .love {
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+    }
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+   header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0;
+    background: #2d3642;
+    color: #FFF;
+  
+  }
+  
+  header h1 {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  header div.dropdown-menu {
+    min-width: 5rem;
+    left: -50px;
+    z-index: 9998;
+  }
+  
+  header a.navbar-brand img {
+    max-height: 35px;
+  }
+  
+  header .header_authentication {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  header .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    list-style: none;
+  }
+  
+  header .login li {
+    display: flex;
+    margin-left: 10px;
+  }
+  
+  header .navbar-nav {
+    line-height: 36px;
+  }
+  
+  header .navbar-light .navbar-nav .nav-link {
+    color: rgba(255,255,255,.7)
+  }
+  header .navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,1)
+  }
+  
+  .category-item {
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .category-item .shape {
+    margin: 50px 30px;
+    width: 118px;
+    cursor: pointer;
+    height: 65px;
+    background: #ffffff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  .category-item .shape:before {
+    content: "";
+    position: absolute;
+    top: -35px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 59px solid transparent;
+    border-right: 59px solid transparent;
+    border-bottom: 35px solid #ffffff;
+  }
+  .category-item .shape:after {
+    content: "";
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 59px solid transparent;
+    border-right: 59px solid transparent;
+    border-top: 35px solid #ffffff;
+  }
+  
+  .category-item h1 {
+    color: #45bbf5;
+  }
+  
+  header .header-buttons {
+    position: absolute; left: 50%; transform: translateX(-50%) !important;
+    text-transform: uppercase;
+    padding-top: 10px;
+    overflow: hidden;
+    width: auto !important;
+  }
+  header .header-buttons.collapse {
+    display: none;
+  }
+  header .header-buttons a {
+    color: #FFF;
+    display: inline-block;
+    text-align: center;
+    font-size: 11px;
+    padding: 2px 16px !important;
+    line-height: 30px;
+  }
+  header .navbar-light .navbar-nav.header-buttons .nav-link:hover {
+    background-color: #323A44;
+    color: #3DB4F8;
+  }
+  header .header-buttons a i {
+    display: block;
+  }
+  
+  @media only screen and (max-width : 480px) {
+    .header-site-title .shape {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    header .header-buttons.collapse {
+      display: block;
+    }
+  }
+  
+  /*
+     HEADER RESPONSIVE RULES
+     ========================================================================== */
+  
+  
+  /* Custom, iPhone Retina */
+  @media only screen and (max-width : 320px) {
+  
+  }
+  
+  /* Extra Small Devices, Phones */
+  @media only screen and (max-width : 480px) {
+    .navbar {
+      padding: .5rem;
+    }
+    .navbar-toggler-right {
+      position: absolute;
+      right: 0;
+    }
+    div#navbarNavAltMarkup {
+      border-top: 1px solid #ccc;
+      margin-top: .5rem;
+    }
+    header a.navbar-brand img {
+      max-height: 25px;
+    }
+  }
+  
+  /* Small Devices, Tablets */
+  @media only screen and (max-width : 768px) {
+  
+  }
+  
+  /* Medium Devices, Desktops */
+  @media only screen and (max-width : 992px) {
+    a.badge.badge-filter {
+      max-width: 10em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  
+  /* Medium Devices, Desktops */
+  @media only screen and (min-width : 992px) {
+    header {
+      padding: 0;
+    }
+  }
+  
+  /* Large Devices, Wide Screens */
+  @media only screen and (min-width : 1200px) {
+  
+  }
+ /*
+  custom
+ */ 
+.no-dotts {
+  list-style: none;
+}
+.split-3 {
+  column-count: 3;
+}
+.table-stripped tbody tr:hover {
+  background-color: lightyellow !important;
+  color: #00BCD4 !important;
+}
+
+  /*Sidenav*/
+.sidenav {
+  height: 100%;
+  width: 800px;
+  max-width: 100%;
+  transform: translateX(800px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #FFF;
+  will-change: transform;
+  transition: transform 0.33s cubic-bezier(0, 0, 0.3, 1);
+  opacity: 0.95;
+  box-shadow: 0px 10px 4px #000;
+  z-index: 1035;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.sidenav .sidenav-content .header {
+  height: 150px;
+  transition: height 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.sidenav .sidenav-content .header .title {
+  color: #2d3642;
+  font-family: montserrat;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+  -webkit-text-stroke-color: #2d3642;
+  -webkit-text-fill-color: #2d3642;
+  -webkit-text-stroke-width: 1px;
+}
+.sidenav .sidenav-content .header .trust {
+  color: currentColor;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.sidenav .sidenav-content .header .btn-primary {
+  margin: 1em 0;
+  background-color: #00BCD4;
+  border-color: #00BCD4;
+  padding: .6rem 2rem;
+  cursor: pointer;
+}
+.sidenav .sidenav-content .header .btn-primary:hover {
+  background-color: #0288D1;
+}
+.sidenav .sidenav-content .navbar {
+  padding: 0;
+}
+.sidenav .sidenav-content .navbar ul {
+  background-color: lightgrey;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+.sidenav .sidenav-content .navbar ul li {
+  display: inline-block;
+  /*
+          padding: 7px 35px;
+          */
+  padding: 15px 35px;
+  cursor: pointer;
+}
+.sidenav .sidenav-content .navbar ul li a {
+  color: #00BCD4;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+.sidenav .sidenav-content .navbar ul li.active {
+  /*
+            background-color: #939393;
+            */
+  border-bottom: 3px solid darkgray;
+}
+.sidenav .sidenav-content .navbar ul li.active a {
+  color: white !important;
+}
+.sidenav .sidenav-content .scrollspy-example {
+  position: relative;
+  height: 700px;
+  /* height: 400px;*/
+  overflow: auto;
+  padding: 0 20px;
+}
+.sidenav .sidenav-content .scrollspy-example .section-title {
+  font-size: 15px;
+  color: #777;
+}
+.sidenav .sidenav-content .scrollspy-example .section-title h3 {
+  color: rgba(0, 0, 0, 0.7);
+  padding: 10px 0;
+}
+.sidenav .sidenav-content .scrollspy-example .legal-title {
+  font-size: 15px;
+  color: #777;
+}
+.sidenav .sidenav-content .scrollspy-example .legal-title span {
+  font-weight: normal;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks {
+  display: flex;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check {
+  flex: 1 1 33%;
+  margin-bottom: 15px;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check .title {
+  color: #2d3642;
+  font-family: montserrat;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check .info-parent {
+  position: relative;
+  display: table;
+  font-size: 0.9em;
+  color: black;
+  cursor: pointer;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check .info-parent .info-child {
+  width: 100%;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 6px;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -50px;
+  /* Fade in tooltip */
+  /* opacity: 0;
+               transition: opacity 1s;*/
+  display: none;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check .info-parent .info-child:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check .info-parent:hover .info-child {
+  /* visibility: visible;
+               opacity: 1;*/
+  display: block;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check span {
+  background-color: #00BCD4;
+  color: white;
+  padding: 4px 20px;
+  border-radius: 50px;
+  font-size: 0.8em;
+  text-align: center;
+  margin-right: 5px;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check span.limited {
+  background-color: #f0ad4e;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check span.yes {
+  background-color: #5cb85c;
+}
+.sidenav .sidenav-content .scrollspy-example .law-checks .law-check span.no {
+  background-color: #EF5350;
+}
+.sidenav .sidenav-content .scrollspy-example .country-details {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.sidenav .sidenav-content .scrollspy-example .country-details .country {
+  color: rgba(0, 0, 0, 0.7);
+}
+.sidenav .sidenav-content .scrollspy-example .country-details label {
+  display: inline-block;
+  width: 15rem;
+}
+.sidenav .sidenav-content .scrollspy-example .country-details label i {
+  color: #00BCD4;
+  font-size: 18px;
+}
+.sidenav .sidenav-content .scrollspy-example .kyc {
+  display: inline-block;
+  margin-right: 5px;
+}
+.sidenav .sidenav-content .scrollspy-example .kyc .kyc-badge {
+  overflow: hidden;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  padding: 4px 14px;
+  border-radius: 10rem;
+  background-color: #00BCD4;
+  color: white;
+  font-size: 12px;
+}
+.sidenav .sidenav-content .scrollspy-example .kyc .kyc-badge i {
+  color: black;
+  font-size: 16px;
+  line-height: 1;
+}
+.visible {
+  transform: translateX(0px);
+}
+.flyout-visible {
+  overflow: hidden;
+}
+.flyout-visible .container-fluid {
+  pointer-events: none;
+}
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}

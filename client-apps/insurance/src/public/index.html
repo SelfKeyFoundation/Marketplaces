@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="marketplaceApp">
+
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/flag-icon.css">
+  <link rel="stylesheet" href="css/application.css?insurance=20171004">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.css">
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script data-require="jquery@*" data-semver="1.9.1" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <!--<script src="js/vanilla/vendor/bootstrap-4.0.0.min.js"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.4.0/rzslider.min.js"></script>
+
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+  <!-- <div id="root" class="container-fluid"></div> -->
+    <header class="" style="background: #2d3642">
+      <nav class="navbar  navbar-toggleable-md navbar-light">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/marketplace/insurance">
+          <img src="images/self-key-white.png" alt="Health Insurance"/>
+        </a>
+    
+        <ul class="nav mx-auto header-buttons collapse navbar-collapse" style="">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              Public Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/marketplace">
+              <i class="material-icons">card_travel</i>
+              Marketplace
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="material-icons">perm_contact_calendar</i>
+              Identity
+            </a>
+          </li>
+    
+        </ul>
+    
+        <div class="collapse navbar-collapse float-right justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+    
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-en"></span> <span class="visible-sm-down">en</span></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href=""><span class="flag-icon flag-icon-us"></span> EN</a>
+              </div>
+            </li>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="header-site-title" style="background: linear-gradient(rgb(206, 234, 242) 1%, rgb(206, 234, 242) 72%, rgb(255, 255, 255) 100%);">
+      <div class="category-item text-center">
+        <div class="shape">
+          <a href="" class="category-link">
+            <img src="images/site-logo.png" alt="">
+          </a>
+        </div>
+        <h1 class="bold_text">INSURANCE</h1>
+      </div>
+  
+    </div>
+
+    <div class="App-ListView" ng-controller="ListController">
+      <div id="overlay" ng-click="closeNav()"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div ng-if="benefitSlider" class="col col-md-6">
+            <label>Max Benefit</label>
+            <rzslider rz-slider-model="benefitSlider.minValue" rz-slider-high="benefitSlider.maxValue" rz-slider-options="benefitSlider.options">
+            </rzslider>
+          </div>
+          <div ng-if="costSlider" class="col col-md-6">
+            <label>Cost</label>
+            <rzslider rz-slider-model="costSlider.minValue" rz-slider-high="costSlider.maxValue" rz-slider-options="costSlider.options">
+            </rzslider>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-12" style="margin-top: 20px">
+            <button type="button" class="btn btn-success cursor-pointer" ng-click="search()">search</button>
+            <button type="button" class="btn cursor-pointer" ng-click="reset()">reset filters</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div ng-if="!result" style="margin-top: 20px">
+        Loading results...
+      </div>
+
+      <div ng-if="result.length > 0" style="margin-top: 20px">
+        <table class="table table-stripped">
+          <thead>
+            <tr>
+              <th>Insurance Provider</th>
+              <th>Company Logo</th>
+              <th>Plan Name</th>
+              <th>Approximately Cost</th>
+              <th>Area Of Cover</th>
+              <th>Max Benefit</th>
+              <th>Claims Processing Time</th>
+              <th>Key Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in result" ng-click="openNav(item)">
+              <td>{{ item['Insurance Company'] }} </td>
+              <td><img ng-if="item['Company logo'][0].thumbnails.small.url" src="{{item['Company logo'][0].thumbnails.small.url}}" /></td>
+              <td>{{ item['Plan Name'] }}</td>
+              <td>${{ item['Cost'] }}</td>
+              <td>{{ item['Area of Cover'] }}</td>
+              <td>${{ item['Max Benefit'] }}</td>
+              <td>{{ item['Claims Processing'] }}</td>
+              <td>
+                <button type="button" class="btn btn-info cursor-pointer" ng-click="openNav(item)">
+                  show key points
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Modal -->
+        <!--
+        <div id="overlay" ng-click="closeNav()"></div>
+        <div id="keyPoints" class="modal" role="dialog">
+          <div class="modal-dialog">
+            
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{selectedItem['Insurance Company'] + ' Key Points'}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <ul>
+                  <li ng-repeat="keyItem in selectedItem['Key Points']">
+                    {{ keyItem }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+        <div id="mySidenav" class="sidenav">
+          <a href="" class="closebtn" ng-click="closeNav()">×</a>
+          <div class="sidenav-content">
+            <div class="header">
+                <div class="title">
+                  {{rawData['Insurance Company']}}
+                  <img ng-if="rawData['Company logo'][0].thumbnails.small.url" src="{{rawData['Company logo'][0].thumbnails.small.url}}" />
+                  
+                </div>
+                <div class="trust">{{ rawData['Plan Name'] }}</div>
+            </div> <!-- End Header -->
+            <div class="navbar">
+              <ul id="navPills" class="nav nav-pills nav-stacked">
+                <li class="active">
+                  <a href="#section1" prevent-default="" scroll-to="section1">Introduction</a>
+                </li>
+                <li class="">
+                  <a href="#section2" prevent-default="" scroll-to="section2">Explanation</a>
+                </li>
+                <li class="">
+                  <a href="#section3" prevent-default="" scroll-to="section3">Key Points</a>
+                </li>
+              </ul>
+            </div> <!-- End Navbar -->
+            <div class="section-descriptions">
+              <div id="section1">
+                <h4>Introduction</h4>
+                <ul class="split-3 no-dotts">
+                  <li>Area of Cover: {{ rawData['Area of Cover'] }}</li>
+                  <li>Claims Processing: {{ rawData['Claims Processing'] }}</li>
+                  <li>Cost: ${{ rawData['Cost'] }}</li>
+                  <li>Excess Per Year: ${{ rawData['Excess Per year'] }}</li>
+                  <li>Max Benefit: ${{ rawData['Max Benefit'] }}</li>
+                  
+                  <li>Plan Name: {{ rawData['Plan Name'] }}</li>
+                </ul>
+              </div>
+              <div id="section2">
+                <h3>Explanation</h3>
+                {{ rawData['Explanation'] }}
+              </div>
+              <div id="section3">
+                <h3>Key Points</h3>
+                <ul>
+                  <li ng-repeat="point in rawData['Key Points']">{{ point }}</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <ng-include src="'footer.html'"></ng-include>
+    </div>
+
+    <script src="js/application.js?insurance=20171004"></script>
+
+
+    <script>
+      document.body.onload = function () {
+        var fonts = ['Source+Sans+Pro:200,400,700'];
+        var url = 'https://fonts.googleapis.com/css?family=';
+        fonts.forEach(function (font) {
+          // To load multiple fonts in one call we just separete the fonts with the | character
+          url += font + "|";
+        });
+        url = url.replace(/\|$/, '');
+        loadFont(url);
+      }
+      function loadFont(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var style = document.createElement('style');
+            style.innerHTML = xhr.responseText;
+            document.head.appendChild(style);
+          }
+        };
+        xhr.send();
+      }
+    </script>
+
+</body>
+
+</html>
