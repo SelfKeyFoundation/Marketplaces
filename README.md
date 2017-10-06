@@ -55,3 +55,5 @@ Bitcoin and Alternative Coins Exchanges. Items are mainly classified by coin and
 
 Signing up for Token Sales powered by the SelfKey Identity Ecosystem.
 
+_Marketplace data is proprietary and not open source._
+
