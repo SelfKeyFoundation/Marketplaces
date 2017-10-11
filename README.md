@@ -56,6 +56,9 @@ Bitcoin and Alternative Coins Exchanges. Items are mainly classified by coin and
 Signing up for Token Sales powered by the SelfKey Identity Ecosystem.
 
 _Marketplace code is liscensed via GPLV3 liscense
-_Marketplace data is proprietary and not open source - it is owned by the marketplace creator_
-_You might be able to build a marketplace on our technology. Get involved by joining our Telegram @selfkey or visit our ideas portal with an Idea at Idea.Selfkey.org
+_Marketplace data is proprietary and not open source - it is owned by the marketplace creator
+_You might be able to build a marketplace on our technology. 
+
+**Get Involved**
+Get involved by joining our Telegram: @selfkey or visit our ideas portal with an Idea at https://idea.Selfkey.org
 
