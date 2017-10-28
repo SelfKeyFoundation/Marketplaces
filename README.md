@@ -60,5 +60,5 @@ _Marketplace data is proprietary and not open source - it is owned by the market
 _You might be able to build a marketplace on our technology. 
 
 **Get Involved**
-Get involved by joining our Telegram: @selfkey or visit our ideas portal with an Idea at https://idea.Selfkey.org
+Get involved by joining our Telegram: http://t.me/selfkeyfoundation or visit our ideas portal with an Idea at https://idea.Selfkey.org
 
