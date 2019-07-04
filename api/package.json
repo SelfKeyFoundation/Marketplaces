@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./index.js",
-    "dev": "DEBUG=app nodemon ./index.js"
+    "dev": "DEBUG=app nodemon ./index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "airtable": "latest",
@@ -30,10 +32,12 @@
     "request": "latest",
     "serve-favicon": "latest",
     "session-file-store": "latest",
-    "spdy": "latest"
+    "spdy": "latest",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "nodemon": "latest",
     "wenk": "latest"
-  }
+  },
+  "snyk": true
 }
